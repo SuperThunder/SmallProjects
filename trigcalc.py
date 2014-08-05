@@ -9,6 +9,9 @@ def main():
 	angleA = 0 #need to declare vars here or python throws a UnboundLocalError fit
 	angleB = 0
 	angleC = 0
+	sidea = 0
+	sideb = 0
+	sidec = 0
 	
 	if raw_input("is the triangle right-angled (y/n)") == "y": #find whether triangle is right
 		isright = True
@@ -32,7 +35,8 @@ def main():
 	else:
 		print "now solving a non-right angled triangle with the values given"
 		nonrightsolve(angleA, angleB, angleC, sidea, sideb, sidec)
-
+	
+	
 #getting angle values, assume user is using degrees
 def angleinput(noofangles):
 
@@ -62,9 +66,9 @@ def sideinput(noofsides):
 
 	print("sideinput")
 	
-	sidea = round(0)
-	sideb = round(0)
-	sidec = round(0)
+	sidea = 0
+	sideb = 0
+	sidec = 0
 
 	if noofsides == 1:
 		sidea = int(raw_input("enter side a"))
@@ -88,7 +92,8 @@ def rightanglesolve(angleA, angleB, angleC, sidea, sideb, sidec):
 	sidec = sidea/(math.sin(angleA))
 	sideb = sidea/(math.tan(angleA))
 	angleB = math.atan(sideb/sidea) #use tan for this so that the given a value is used, reduce round error
-
+	
+	
 def nonrightsolve(angleA, angleB, angleC, sidea, sideb, sidec):
 	print "lol how do I solve this"
 	
