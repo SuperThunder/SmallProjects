@@ -6,7 +6,13 @@ def main():
 	
 	print("main")
 	
-	angleA = 0 #need to declare vars here or python throws a UnboundLocalError fit
+	global angleA #need to declare vars here or python throws a UnboundLocalError fit and other fits depending on interstellar alignment
+	global angleB
+	global angleC
+	global sidea
+	global sideb
+	global sidec
+	angleA = 0 
 	angleB = 0
 	angleC = 0
 	sidea = 0
@@ -42,9 +48,9 @@ def angleinput(noofangles):
 
 	print("angleinput")
 
-	angleA = 0
-	angleB = 0
-	angleC = 0
+#	angleA = 0
+#	angleB = 0
+#	angleC = 0
 	
 	if noofangles == 1:
 		angleA = int(raw_input("enter angle A's value in degrees"))
@@ -66,9 +72,9 @@ def sideinput(noofsides):
 
 	print("sideinput")
 	
-	sidea = 0
-	sideb = 0
-	sidec = 0
+#	sidea = 0
+#	sideb = 0
+#	sidec = 0
 
 	if noofsides == 1:
 		sidea = int(raw_input("enter side a"))
