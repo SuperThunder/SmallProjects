@@ -4,7 +4,7 @@ import math #used for trigonometric functions,
 
 def main():
 	
-	print("enter main")
+	print("main")
 	
 	angleA = 0 #need to declare vars here or python throws a UnboundLocalError fit
 	angleB = 0
@@ -17,10 +17,10 @@ def main():
 	noofsides = int(raw_input("how many sides do you know?"))
 	
 	angleinput(noofangles) #get as many angles as the user knows (maxes at 3)
-	return angleA, angleB, angleC	
+#	return angleA, angleB, angleC	
 		
 	sideinput(noofsides) #get as many sides as the user knows (maxes at 3)
-	return sidea, sideb, sidec
+#	return sidea, sideb, sidec
 	
 	angleA = math.radians(angleA) #convert ro radians from degrees as Python's trig funcions use radians
 	angleB = math.radians(angleB)
@@ -36,7 +36,7 @@ def main():
 #getting angle values, assume user is using degrees
 def angleinput(noofangles):
 
-	print("enter angleinput")
+	print("angleinput")
 
 	angleA = 0
 	angleB = 0
@@ -52,6 +52,7 @@ def angleinput(noofangles):
 		angleB = int(raw_input("enter angle B"))
 		angleC = int(raw_input("enter angle C"))
 	
+	return angleA, angleB, angleC
 	#if angleA or angleB or angleC >= 91:
 	#	print "cannot solve an obtuse triangle!"
 	
@@ -59,7 +60,7 @@ def angleinput(noofangles):
 #getting side lengths
 def sideinput(noofsides):
 
-	print("enter sideinput")
+	print("sideinput")
 	
 	sidea = round(0)
 	sideb = round(0)
@@ -76,11 +77,13 @@ def sideinput(noofsides):
 		sidea = int(raw_input("enter side a"))
 		sideb = int(raw_input("enter side b"))	
 		sidec = int(raw_input("enter side c"))
-
+		
+	return sidea, sideb, sidec
+	
 #calculate all the values in a right triangle from an angle, a side, and the implied right angle
 def rightanglesolve(angleA, angleB, angleC, sidea, sideb, sidec):
 	
-	print("enterrightanglesolve")
+	print("rightanglesolve")
 
 	sidec = sidea/(math.sin(angleA))
 	sideb = sidea/(math.tan(angleA))
