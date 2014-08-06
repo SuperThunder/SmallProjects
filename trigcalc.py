@@ -25,6 +25,7 @@ def main():
 	if  isright == True:
 		print "now solving a right angled triangled with the values"
 		rightanglesolve(angleA, angleB, angleC, sidea, sideb, sidec)
+		
 	else:
 		print "now solving a non-right angled triangle with the values given"
 		nonrightsolve(angleA, angleB, angleC, sidea, sideb, sidec)
@@ -80,12 +81,11 @@ def sideinput(noofsides):
 #calculate all the values in a right triangle from an angle, a side, and the implied right angle
 def rightanglesolve(angleA, angleB, angleC, sidea, sideb, sidec):
 	
-	
-
 	sidec = sidea/(math.sin(angleA))
 	sideb = sidea/(math.tan(angleA ))
 	angleB = math.atan(sideb/sidea) #use tan for this so that the given a value is used, reduce round error
 	
+	print "\nAngle A is ", math.degrees(angleA), "\nAngle B is ", math.degrees(angleB), "\nAngle C is 90, or should be because it's the implied right angle you said existed", "\nSide A is ", sidea, "\nSide B is ", sideb, "\nSide C is ", sidec
 	
 def nonrightsolve(angleA, angleB, angleC, sidea, sideb, sidec):
 	print "lol how do I solve this"
