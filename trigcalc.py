@@ -65,7 +65,7 @@ def sideinput(noofsides):
 	#def invidiualinput(actualsideinput)
 		
 		
-	SidesToSolve = raw_input "Which sides do you know the values to? (enter a, b, and/or c, so all three would abc)
+	SidesToSolve = raw_input "Which sides do you know the values to? (enter a, b, and/or c, so all three would abc):
 	
 	def SideInputA # there's gotta be a better way to do this but this works so w/e
 		sidea = raw_input("Enter the value of Side A")
@@ -79,8 +79,12 @@ def sideinput(noofsides):
 		sidec = raw_input("Enter the value of Side C")
 		return sidec
 		
-	if a in SidesToSolve
-		sidea
+	if a in SidesToSolve:
+		sidea = SideInputA
+	elif b in SidesToSolve:
+		sideb = SideInputB
+	elif c in SidesToSolve:
+		sidec = SideInputC
 	
 	return(sidea, sideb, sidec)
 	
