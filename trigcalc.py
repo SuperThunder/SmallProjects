@@ -5,13 +5,6 @@ import math #used for trigonometric functions,
 def main():
 	
 	print("main")
-	 
-	angleA = 0 #need to declare vars here or python throws a UnboundLocalError fit and other fits depending on interstellar alignment
-	angleB = 0
-	angleC = 0
-	sidea = 0
-	sideb = 0
-	sidec = 0
 	
 	if raw_input("is the triangle right-angled (y/n)") == "y": #find whether triangle is right
 		isright = True
@@ -19,7 +12,7 @@ def main():
 	noofangles = int(raw_input("how many angles do you know?"))
 	noofsides = int(raw_input("how many sides do you know?"))
 	
-	angleinput(noofangles, angleA, angleB, angleC) #get as many angles as the user knows (maxes at 3)
+	angleA, angleB, angleC = angleinput(noofangles) #get as many angles as the user knows (maxes at 3)
 #	return angleA, angleB, angleC	
 	print angleA	
 		
@@ -39,13 +32,13 @@ def main():
 	
 	
 #getting angle values, assume user is using degrees
-def angleinput(noofangles, angleA, angleB, angleC):
+def angleinput(noofangles):
 
 	print("angleinput")
 
-#	angleA = 0 # don't ask why this is here. it makes python happy.#
-#	angleB = 0
-#	angleC = 0
+	angleA = 0 # don't ask why this is here. it makes python happy.#
+	angleB = 0
+	angleC = 0
 	
 	if noofangles == 1:
 		angleA = int(raw_input("enter angle A's value in degrees "))
@@ -91,7 +84,7 @@ def rightanglesolve(angleA, angleB, angleC, sidea, sideb, sidec):
 	print("rightanglesolve", angleA)
 
 	sidec = sidea/(math.sin(angleA))
-	sideb = sidea/(math.tan(angleA))
+	sideb = sidea/(math.tan(angleA ))
 	angleB = math.atan(sideb/sidea) #use tan for this so that the given a value is used, reduce round error
 	
 	
