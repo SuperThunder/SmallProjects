@@ -8,6 +8,8 @@ def main():
 	
 	if raw_input("is the triangle right-angled (y/n)") == "y": #find whether triangle is right
 		isright = True
+	else:
+		isright = False
 	
 	noofangles = int(raw_input("how many angles do you know?"))
 	noofsides = int(raw_input("how many sides do you know?"))
