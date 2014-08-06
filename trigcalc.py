@@ -19,8 +19,9 @@ def main():
 	noofangles = int(raw_input("how many angles do you know?"))
 	noofsides = int(raw_input("how many sides do you know?"))
 	
-	angleinput(noofangles) #get as many angles as the user knows (maxes at 3)
+	angleinput(noofangles, angleA, angleB, angleC) #get as many angles as the user knows (maxes at 3)
 #	return angleA, angleB, angleC	
+	print angleA	
 		
 	sideinput(noofsides) #get as many sides as the user knows (maxes at 3)
 #	return sidea, sideb, sidec
@@ -38,25 +39,25 @@ def main():
 	
 	
 #getting angle values, assume user is using degrees
-def angleinput(noofangles):
+def angleinput(noofangles, angleA, angleB, angleC):
 
 	print("angleinput")
 
-	angleA = 0 # don't ask why this is here. it makes python happy.
-	angleB = 0
-	angleC = 0
+#	angleA = 0 # don't ask why this is here. it makes python happy.#
+#	angleB = 0
+#	angleC = 0
 	
 	if noofangles == 1:
-		angleA = int(raw_input("enter angle A's value in degrees"))
+		angleA = int(raw_input("enter angle A's value in degrees "))
 	if noofangles == 2:
-		angleA = int(raw_input("enter angle A's value in degrees"))
-		angleB = int(raw_input("enter angle B"))
+		angleA = int(raw_input("enter angle A's value in degrees "))
+		angleB = int(raw_input("enter angle B "))
 	if noofangles >= 3: #assume that if user enters angle value greater than 3 it's a mistype
-		angleA = int(raw_input("enter angle A's value in degrees"))
-		angleB = int(raw_input("enter angle B"))
-		angleC = int(raw_input("enter angle C"))
-	
-	return angleA, angleB, angleC
+		angleA = int(raw_input("enter angle A's value in degrees "))
+		angleB = int(raw_input("enter angle B "))
+		angleC = int(raw_input("enter angle C "))
+	print angleA
+	return(angleA, angleB, angleC)
 	#if angleA or angleB or angleC >= 91:
 	#	print "cannot solve an obtuse triangle!"
 	
@@ -82,12 +83,12 @@ def sideinput(noofsides):
 		sideb = int(raw_input("enter side b"))	
 		sidec = int(raw_input("enter side c"))
 		
-	return sidea, sideb, sidec
+	return(sidea, sideb, sidec)
 	
 #calculate all the values in a right triangle from an angle, a side, and the implied right angle
 def rightanglesolve(angleA, angleB, angleC, sidea, sideb, sidec):
 	
-	print("rightanglesolve")
+	print("rightanglesolve", angleA)
 
 	sidec = sidea/(math.sin(angleA))
 	sideb = sidea/(math.tan(angleA))
