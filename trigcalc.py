@@ -4,7 +4,7 @@ import math #used for trigonometric functions,
 
 def main():
 	
-	print("main") #debug
+	
 	
 	if raw_input("is the triangle right-angled (y/n)") == "y": #find whether triangle is right
 		isright = True
@@ -14,7 +14,7 @@ def main():
 	
 	angleA, angleB, angleC = angleinput(noofangles) #get as many angles as the user knows (maxes at 3)
 
-	print angleA #debug
+	
 		
 	sidea, sideb, sidec = sideinput(noofsides) #get as many sides as the user knows (maxes at 3)
 	
@@ -33,7 +33,7 @@ def main():
 #getting angle values, assume user is using degrees
 def angleinput(noofangles):
 
-	print("angleinput")
+	
 
 	angleA = 0 # don't ask why this is here. it makes python happy.#
 	angleB = 0
@@ -48,7 +48,7 @@ def angleinput(noofangles):
 		angleA = int(raw_input("enter angle A's value in degrees "))
 		angleB = int(raw_input("enter angle B "))
 		angleC = int(raw_input("enter angle C "))
-	print angleA #debug
+	
 	return(angleA, angleB, angleC)
 	#if angleA or angleB or angleC >= 91:
 	#	print "cannot solve an obtuse triangle!"
@@ -57,7 +57,7 @@ def angleinput(noofangles):
 #getting side lengths
 def sideinput(noofsides):
 
-	print("sideinput") #debug
+	
 	
 	sidea = 0
 	sideb = 0
@@ -80,7 +80,7 @@ def sideinput(noofsides):
 #calculate all the values in a right triangle from an angle, a side, and the implied right angle
 def rightanglesolve(angleA, angleB, angleC, sidea, sideb, sidec):
 	
-	print("rightanglesolve", angleA) #debug
+	
 
 	sidec = sidea/(math.sin(angleA))
 	sideb = sidea/(math.tan(angleA ))
