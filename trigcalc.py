@@ -72,23 +72,23 @@ def sideinput(noofsides):
 	#there's gotta be a better way to do this but this works so whatever
 	
 	def SideInputA(): 
-		sidea = raw_input("Enter the value of Side A")
+		sidea = int(raw_input("Enter the value of Side A"))
 		return sidea
 		
 	def SideInputB():
-		sideb = raw_input("Enter the value of Side B")
+		sideb = int(raw_input("Enter the value of Side B"))
 		return sideb
 	
 	def SideInputC():
-		sidec = raw_input("Enter the value of Side C")
+		sidec = int(raw_input("Enter the value of Side C"))
 		return sidec
 		
 	if 'a' in SidesToSolve:
-		sidea = SideInputA
+		sidea = SideInputA()
 	elif 'b' in SidesToSolve:
-		sideb = SideInputB
+		sideb = SideInputB()
 	elif 'c' in SidesToSolve:
-		sidec = SideInputC
+		sidec = SideInputC()
 	
 	return(sidea, sideb, sidec)
 	
