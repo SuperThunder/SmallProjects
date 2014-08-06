@@ -4,7 +4,7 @@ import math #used for trigonometric functions,
 
 def main():
 	
-	print("main")
+	print("main") #debug
 	
 	if raw_input("is the triangle right-angled (y/n)") == "y": #find whether triangle is right
 		isright = True
@@ -13,11 +13,10 @@ def main():
 	noofsides = int(raw_input("how many sides do you know?"))
 	
 	angleA, angleB, angleC = angleinput(noofangles) #get as many angles as the user knows (maxes at 3)
-#	return angleA, angleB, angleC	
-	print angleA	
+
+	print angleA #debug
 		
-	sideinput(noofsides) #get as many sides as the user knows (maxes at 3)
-#	return sidea, sideb, sidec
+	sidea, sideb, sidec = sideinput(noofsides) #get as many sides as the user knows (maxes at 3)
 	
 	angleA = math.radians(angleA) #convert ro radians from degrees as Python's trig funcions use radians
 	angleB = math.radians(angleB)
@@ -49,7 +48,7 @@ def angleinput(noofangles):
 		angleA = int(raw_input("enter angle A's value in degrees "))
 		angleB = int(raw_input("enter angle B "))
 		angleC = int(raw_input("enter angle C "))
-	print angleA
+	print angleA #debug
 	return(angleA, angleB, angleC)
 	#if angleA or angleB or angleC >= 91:
 	#	print "cannot solve an obtuse triangle!"
@@ -58,7 +57,7 @@ def angleinput(noofangles):
 #getting side lengths
 def sideinput(noofsides):
 
-	print("sideinput")
+	print("sideinput") #debug
 	
 	sidea = 0
 	sideb = 0
@@ -81,7 +80,7 @@ def sideinput(noofsides):
 #calculate all the values in a right triangle from an angle, a side, and the implied right angle
 def rightanglesolve(angleA, angleB, angleC, sidea, sideb, sidec):
 	
-	print("rightanglesolve", angleA)
+	print("rightanglesolve", angleA) #debug
 
 	sidec = sidea/(math.sin(angleA))
 	sideb = sidea/(math.tan(angleA ))
