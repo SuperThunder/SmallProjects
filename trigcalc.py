@@ -49,7 +49,6 @@ def main():
 		elif noofangles >= 2:
 			print "nothing ehre"
 	results = ("\nAngle A: " + str(math.degrees(angleA)) + "\nAngle B: " + str(math.degrees(angleB)) + "\nAngle C: 90 (cuz it's a right triangle duh)" + "\nSide a: " + str(sidea) + "\nSide b: " + str(sideb) + "\nSide c: " + str(sidec))
-	#print(toString("\nAngle A: ", math.degrees(angleA), "Angle B: ", math.degrees(angleB), "Angle C: 90 (cuz it's a right triangle duh)", math.degrees(angleC), "Side a: ", sidea, "Side b: ", sideb, "Side c: ", sidec))
 	print results	
 		
 def angleinput():
