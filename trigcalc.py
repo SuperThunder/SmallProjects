@@ -5,16 +5,17 @@ import math #used for trigonometric functions,
 def main():
 	
 	trisolve = TrigFunctions()
+	
 # whether it's right angled very possibly 99.5% irrelevant to solving with a computer
 # HOLD IT! it is relevant because with a right angled you only need to enter A and a, b, or c because the 90 is implied in C
 	if raw_input("is the triangle right-angled (y/n)") == "y": #find whether triangle is right
 		isright = True
-		"\n Label and input your triangle so that A is a known angle and C is the 90 degree angle\n When asked to enter"
+		"\n Label and input your triangle so that A is a known angle and C is the 90 degree angle"
 	else:
 		isright = False
 	
-	noofangles = int(raw_input("how many angles do you know?"))
-	noofsides = int(raw_input("how many sides do you know?"))
+#	noofangles = int(raw_input("how many angles do you know?"))
+#	noofsides = int(raw_input("how many sides do you know?"))
 	
 	angleA, angleB, angleC = angleinput(noofangles)	
 	sidea, sideb, sidec, SidesKnown = sideinput(noofsides) 
@@ -25,15 +26,28 @@ def main():
 	
 	if  isright == True:
 		print "now solving a right angled triangled with the values provided"
-		
 		if 'a' in SidesKnown:
 			angleA, angleB, sidea, sideb, sidec = trisolve.AngASida(angleA, sidea)
-			print angleA, angleB, sidea, sideb, sidec
+		elif 'b' in SidesKnown:
+			angleA, angleB, sidea, sideb, sidec = trisolve.AngASidb(angleA, sideb)
+		elif 'c' in SidesKnown:
+			angleA, angleB, sidea, sideb, sidec = trisolve.AngASidc(angleA, sidec)
+		elif 'a' and 'b' and 'c' in SidesKnown: 
+			angleA, angleB, sidea, sideb, sidec = trisolve.Sidabc(sidea, sideb, sidec)
 	else:
 		print "now solving a non-right angled triangle with the values given"
-		nonrightsolve(angleA, angleB, angleC, sidea, sideb, sidec)
-	
-	
+		if noofangles == 1:
+			if 'a' and 'b' in SidesKnown:
+				angleA, angleB, sidea, sideb, sidec = trisolve.AngASidab(angleA, sidea, sideb)
+			elif 'a' and 'c' in SidesKnown:
+				angleA, angleB, sidea, sideb, sidec = trisolve.AngASidac(angleA, sidea, sidec)
+			elif 'b' and 'c' in SidesKnown:
+				angleA, angleB, sidea, sideb, sidec = trisolve.AngASidbc(angleA, sideb, sidec)
+			else:
+				print "insufficient sides"
+		elif noofangles >= 2:
+			if 
+	print "\nAngle A: ", angleA, "\nAngle B: ", angleB, "\nAngle C: 90 (cuz it's a right triangle duh", angleC, "Side a: ", sidea, "Side b: ", sideb "Side c: ", sidec #delete print of angle C soon, just want to see what it actually ends up as
 		
 		
 def angleinput(noofangles):
@@ -42,15 +56,36 @@ def angleinput(noofangles):
 	angleB = 0
 	angleC = 0
 	
-	if noofangles == 1:
-		angleA = int(raw_input("enter angle A's value in degrees "))
-	elif noofangles == 2:
-		angleA = int(raw_input("enter angle A's value in degrees "))
-		angleB = int(raw_input("enter angle B "))
-	elif noofangles >= 3: #assume that if user enters angle value greater than 3 it's a mistype
-		angleA = int(raw_input("enter angle A's value in degrees "))
-		angleB = int(raw_input("enter angle B "))
-		angleC = int(raw_input("enter angle C "))
+	AnglesKnown = raw_input("Enter the angles you know the value to (so enter A, B, nnd/or C)")
+	
+	def AngleInputA():
+		angleA = int(raw_input("Enter the value of Angle A: "))
+		return angleA
+	
+	def AngleInputB():
+		angleB = int(raw_input("Enter the value of Angle B: "))
+		return angleB
+	
+	def AngleInputC():
+		angleC = int(raw_input("Enter the value of Angle C: "))	
+		return angleC
+		
+	if 'a' in AnglesKnown.lower():
+		angleA = AngleInputA()
+	elif 'b' in SidesKnown:
+		angleB = AngleInputB()
+	elif 'c' in SidesKnown:
+		angleC = AngleInputC()
+		
+#	if noofangles == 1:
+#		angleA = int(raw_input("enter angle A's value in degrees: "))
+#	elif noofangles == 2:
+#		angleA = int(raw_input("enter angle A's value in degrees: "))
+#		angleB = int(raw_input("enter angle B "))
+#	elif noofangles >= 3: #assume that if user enters angle value greater than 3 it's a mistype
+#		angleA = int(raw_input("enter angle A's value in degrees: "))
+#		angleB = int(raw_input("enter angle B "))
+#		angleC = int(raw_input("enter angle C "))
 	
 	return(angleA, angleB, angleC)
 	
@@ -60,18 +95,18 @@ def sideinput(noofsides):
 	sideb = 0
 	sidec = 0
 		
-	SidesKnown = raw_input("Enter a side you know the value to (so enter a, b, or c") 
+	SidesKnown = raw_input("Enter the sides you know the value to (so enter a, b, and/or c") 
 	
 	def SideInputA(): 
-		sidea = int(raw_input("Enter the value of Side A"))
+		sidea = int(raw_input("Enter the value of Side A: "))
 		return sidea
 		
 	def SideInputB():
-		sideb = int(raw_input("Enter the value of Side B"))
+		sideb = int(raw_input("Enter the value of Side B: "))
 		return sideb
 	
 	def SideInputC():
-		sidec = int(raw_input("Enter the value of Side C"))
+		sidec = int(raw_input("Enter the value of Side C: "))
 		return sidec
 		
 	if 'a' in SidesKnown:
@@ -85,52 +120,52 @@ def sideinput(noofsides):
 	
 class TrigFunctions(object): #the idea with this class was to have all the base solving functions for certain sides be easily accessible, but it's ended up more like having all the cases for solving consolidated
 	
-	def AngASida(angleA, sidea): #WARNING: only call 2 term functions for right angled triangle solving!
+	def AngASida(self, angleA, sidea): #WARNING: only call 2 term functions for right angled triangle solving!
 		sidec = sidea/(math.sin(angleA))
 		sideb = sidea/(math.tan(angleA))
 		angleB = math.atan(sideb/sidea) #using trig for this isn't really necesarry, you could do 180 - the known angles
 		return(angleA, angleB, sidea, sideb, sidec) # angleC is not returned here because it's the known 90 degree angle
-	def AngASidb(angleA, sideb):
+	def AngASidb(self, angleA, sideb):
 		sidea = (math.tan(angleA))*sideb
 		sidec = sidea/(math.sin(angleA)) #equations here and for angleB are copied from AngASida, in future should rewrite to use given values
 		angleB = math.atan(sideb/sidea)
 		return(angleA, angleB, sidea, sideb, sidec)
-	def AngASidc(angleA, sidec):
+	def AngASidc(self, angleA, sidec):
 		sidea = (math.sin(angleA))*sidec
 		sideb = sidea/(math.tan(angleA)) #equations here and for angleB are copied from AngASida, in future should rewrite to use given values
 		angleB = math.atan(sideb/sidea)
 		return(angleA, angleB, sidea, sideb, sidec)
-	def Sidabc(sidea, sideb, sidec):
+	def Sidabc(self, sidea, sideb, sidec):
 		angleA = math.acos((sidea^2-sideb^2-sidec^2)/(-2*sideb*sidec))
 		angleB = math.acos((sidea^2-sideb^2-sidec^2)/(-2*sidea*sidec))
 		angleC = math.acos((sidea^2-sideb^2-sidec^2)/(-2*sidea*sideb))
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
-	def AngASidab(angleA, sidea, sideb):
+	def AngASidab(self, angleA, sidea, sideb):
 		angleB = math.asin((math.sin(angleA)/sidea)*sideb)
 		angleC = 180 - angleA - angleB
-		sidec = (sidea/math.sin(angleA))*math.sin(angleC)
+		sidec = (self, sidea/math.sin(angleA))*math.sin(angleC)
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
-	def AngASidac(angleA, sidea, sidec):	
+	def AngASidac(self, angleA, sidea, sidec):	
 		angleC = math.asin((math.sin(AngleA)/sidea)*sidec)
 		angleB = 180 - angleA - angleC
 		sideb = (sidea/math.sin(angleA))*math.sin(angleB)
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
-	def AngASidbc(angleA, sideb, sidec):
+	def AngASidbc(self, angleA, sideb, sidec):
 		sidea = math.sqrt((sideb^2+sidec^2)-2*sideb*sidec*math.cos(angleA))
 		angleB = math.acos((sidea^2-sideb^2-sidec^2)/(-2*sidea*sidec))
 		angleC = 180 - angleA - angleC
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
-	def SidaAngAB(sidea, angleA, angleB):
+	def SidaAngAB(self, sidea, angleA, angleB):
 		angleC = 180 - angleA - angleB
 		sideb = (sidea/math.sin(angleA))*math.sin(angleB)
 		sidec = (sidea/math.sin(angleA))*math.sin(angleC)
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
-	def SidaAngAC(sidea, angleA, angleC):
+	def SidaAngAC(self, sidea, angleA, angleC):
 		angleB = 180 - angleA - angleC
 		sideb = (sidea/math.sin(angleA))*math.sin(angleB)
 		sidec = (sidea/math.sin(angleA))*math.sin(angleC)
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
-	def SidaAngBC(sidea, angleB, angleC):
+	def SidaAngBC(self, sidea, angleB, angleC):
 		angleA = 180 - angleB - angleC
 		sideb = (sidea/math.sin(angleA))*math.sin(angleB)
 		sidec = (sidea/math.sin(angleA))*math.sin(angleC)
