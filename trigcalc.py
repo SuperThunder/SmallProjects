@@ -3,34 +3,39 @@ print "crappytrigcalc\n"
 import math #used for trigonometric functions,
 
 def main():
-
+	
+	trisolve = TrigFunctions()
 # whether it's right angled very possibly 99.5% irrelevant to solving with a computer
-#	if raw_input("is the triangle right-angled (y/n)") == "y": #find whether triangle is right
-#		isright = True
-#	else:
-#		isright = False
+# HOLD IT! it is relevant because with a right angled you only need to enter A and a, b, or c because the 90 is implied in C
+	if raw_input("is the triangle right-angled (y/n)") == "y": #find whether triangle is right
+		isright = True
+		"\n Label and input your triangle so that A is a known angle and C is the 90 degree angle\n When asked to enter"
+	else:
+		isright = False
 	
 	noofangles = int(raw_input("how many angles do you know?"))
 	noofsides = int(raw_input("how many sides do you know?"))
 	
 	angleA, angleB, angleC = angleinput(noofangles)	
-	sidea, sideb, sidec = sideinput(noofsides) 
+	sidea, sideb, sidec, SidesKnown = sideinput(noofsides) 
 	
 	angleA = math.radians(angleA) #convert ro radians from degrees as Python's trig functions use radians
 	angleB = math.radians(angleB)
 	angleC = math.radians(angleC)
 	
+	if  isright == True:
+		print "now solving a right angled triangled with the values provided"
+		
+		if 'a' in SidesKnown:
+			angleA, angleB, sidea, sideb, sidec = trisolve.AngASida(angleA, sidea)
+			print angleA, angleB, sidea, sideb, sidec
+	else:
+		print "now solving a non-right angled triangle with the values given"
+		nonrightsolve(angleA, angleB, angleC, sidea, sideb, sidec)
 	
 	
-	
-	#	if  isright == True:
-#		print "now solving a right angled triangled with the values provided", "\n Label and input your triangle so that A is a known angle and C is the 90 degree angle"
-#		rightanglesolve(angleA, angleB, angleC, sidea, sideb, sidec)
-#	else:
-#		print "now solving a non-right angled triangle with the values given"
-#		nonrightsolve(angleA, angleB, angleC, sidea, sideb, sidec)
-	
-
+		
+		
 def angleinput(noofangles):
 
 	angleA = 0 # don't ask why this is here. it makes python happy.
@@ -55,7 +60,7 @@ def sideinput(noofsides):
 	sideb = 0
 	sidec = 0
 		
-	SidesToSolve = raw_input("Which sides do you know the values to? (enter a, b, and/or c, so all three would abc)") 
+	SidesKnown = raw_input("Enter a side you know the value to (so enter a, b, or c") 
 	
 	def SideInputA(): 
 		sidea = int(raw_input("Enter the value of Side A"))
@@ -69,14 +74,14 @@ def sideinput(noofsides):
 		sidec = int(raw_input("Enter the value of Side C"))
 		return sidec
 		
-	if 'a' in SidesToSolve:
+	if 'a' in SidesKnown:
 		sidea = SideInputA()
-	elif 'b' in SidesToSolve:
+	elif 'b' in SidesKnown:
 		sideb = SideInputB()
-	elif 'c' in SidesToSolve:
+	elif 'c' in SidesKnown:
 		sidec = SideInputC()
 	
-	return(sidea, sideb, sidec)
+	return(sidea, sideb, sidec, SidesKnown)
 	
 class TrigFunctions(object): #the idea with this class was to have all the base solving functions for certain sides be easily accessible, but it's ended up more like having all the cases for solving consolidated
 	
