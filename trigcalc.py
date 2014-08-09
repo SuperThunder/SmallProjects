@@ -29,7 +29,7 @@ def main():
 #getting angle values, assume user is using degrees
 def angleinput(noofangles):
 
-	angleA = 0 # don't ask why this is here. it makes python happy.#
+	angleA = 0 # don't ask why this is here. it makes python happy.
 	angleB = 0
 	angleC = 0
 	
@@ -87,7 +87,7 @@ class TrigFunctions(object) #the idea with this class was to have all the base s
 	def AngASida(angleA, sidea) #WARNING: only call 2 term functions for right angled triangle solving!
 		sidec = sidea/(math.sin(angleA))
 		sideb = sidea/(math.tan(angleA))
-		angleB = math.atan(sideb/sidea) #using trig for this isn't really necesarry, you could do 
+		angleB = math.atan(sideb/sidea) #using trig for this isn't really necesarry, you could do 180 - the known angles
 		return(angleA, angleB, sidea, sideb, sidec) # angleC is not returned here because it's the known 90 degree angle
 	def AngASidb(angleA, sideb)
 		sidea = (math.tan(angleA))*sideb
@@ -119,16 +119,21 @@ class TrigFunctions(object) #the idea with this class was to have all the base s
 		angleB = math.acos((sidea^2-sideb^2-sidec^2)/(-2*sidea*sidec))
 		angleC = 180 - angleA - angleC
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
-	def AngABSida
-	def AngABSidb
-	def AngABsidc
-	def AngACSida
-	def AngACSidb
-	def AngACSidc
-	def AngBCSida
-	def AngBCSidb
-	def AngBCSidc
-	
+	def SidaAngAB
+		angleC = 180 - angleA - angleB
+		sideb = (sidea/math.sin(angleA))*math.sin(angleB)
+		sidec = (sidea/math.sin(angleA))*math.sin(angleC)
+		return(angleA, angleB, angleC, sidea, sideb, sidec)
+	def SidaAngAC
+		angleB = 180 - angleA - angleC
+		sideb = (sidea/math.sin(angleA))*math.sin(angleB)
+		sidec = (sidea/math.sin(angleA))*math.sin(angleC)
+		return(angleA, angleB, angleC, sidea, sideb, sidec)
+	def SidaAngBC
+		angleA = 180 - angleB - angleC
+		sideb = (sidea/math.sin(angleA))*math.sin(angleB)
+		sidec = (sidea/math.sin(angleA))*math.sin(angleC)
+		
 	
 	#__OLD CODE__
 	#calculate all the values in a right triangle from an angle, a side, and the implied right angle 
