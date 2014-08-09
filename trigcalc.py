@@ -119,7 +119,15 @@ class TrigFunctions(object) #the idea with this class was to have all the base s
 		angleB = math.acos((sidea^2-sideb^2-sidec^2)/(-2*sidea*sidec))
 		angleC = 180 - angleA - angleC
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
-	
+	def AngABSida
+	def AngABSidb
+	def AngABsidc
+	def AngACSida
+	def AngACSidb
+	def AngACSidc
+	def AngBCSida
+	def AngBCSidb
+	def AngBCSidc
 	
 	
 	#__OLD CODE__
