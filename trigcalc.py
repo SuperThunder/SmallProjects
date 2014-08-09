@@ -17,14 +17,15 @@ def main():
 #	noofangles = int(raw_input("how many angles do you know?"))
 #	noofsides = int(raw_input("how many sides do you know?"))
 	
-	angleA, angleB, angleC = angleinput(noofangles)	
-	sidea, sideb, sidec, SidesKnown = sideinput(noofsides) 
+	angleA, angleB, angleC = angleinput()	
+	sidea, sideb, sidec, SidesKnown = sideinput() 
 	
 	angleA = math.radians(angleA) #convert ro radians from degrees as Python's trig functions use radians
 	angleB = math.radians(angleB)
 	angleC = math.radians(angleC)
 	
 	if  isright == True:
+		angleC = 90
 		print "now solving a right angled triangled with the values provided"
 		if 'a' in SidesKnown:
 			angleA, angleB, sidea, sideb, sidec = trisolve.AngASida(angleA, sidea)
@@ -47,7 +48,7 @@ def main():
 				print "insufficient sides"
 		elif noofangles >= 2:
 			print "nothing ehre"
-	print("\nAngle A: ", angleA, "\nAngle B: ", angleB, "\nAngle C: 90 (cuz it's a right triangle duh)", angleC, "\nSide a: ", sidea, "\nSide b: ", sideb, "\nSide c: ", sidec) #delete print of angle C soon, just want to see what it actually ends up as
+	print("\nAngle A: ", math.degrees(angleA), "\nAngle B: ", math.degrees(angleB), "\nAngle C: 90 (cuz it's a right triangle duh)", math.degrees(angleC), "\nSide a: ", sidea, "\nSide b: ", sideb, "\nSide c: ", sidec) #delete print of angle C soon, just want to see what it actually ends up as
 		
 		
 def angleinput():
@@ -76,16 +77,6 @@ def angleinput():
 		angleB = AngleInputB()
 	elif 'c' in AnglesKnown:
 		angleC = AngleInputC()
-		
-#	if noofangles == 1:
-#		angleA = int(raw_input("enter angle A's value in degrees: "))
-#	elif noofangles == 2:
-#		angleA = int(raw_input("enter angle A's value in degrees: "))
-#		angleB = int(raw_input("enter angle B "))
-#	elif noofangles >= 3: #assume that if user enters angle value greater than 3 it's a mistype
-#		angleA = int(raw_input("enter angle A's value in degrees: "))
-#		angleB = int(raw_input("enter angle B "))
-#		angleC = int(raw_input("enter angle C "))
 	
 	return(angleA, angleB, angleC)
 	
