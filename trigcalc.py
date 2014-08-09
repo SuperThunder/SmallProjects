@@ -4,10 +4,11 @@ import math #used for trigonometric functions,
 
 def main():
 
-	if raw_input("is the triangle right-angled (y/n)") == "y": #find whether triangle is right
-		isright = True
-	else:
-		isright = False
+# whether it's right angled very possibly 99.5% irrelevant to solving with a computer
+#	if raw_input("is the triangle right-angled (y/n)") == "y": #find whether triangle is right
+#		isright = True
+#	else:
+#		isright = False
 	
 	noofangles = int(raw_input("how many angles do you know?"))
 	noofsides = int(raw_input("how many sides do you know?"))
@@ -19,12 +20,15 @@ def main():
 	angleB = math.radians(angleB)
 	angleC = math.radians(angleC)
 	
-	if  isright == True:
-		print "now solving a right angled triangled with the values provided", "\n Label and input your triangle so that A is a known angle and C is the 90 degree angle"
-		rightanglesolve(angleA, angleB, angleC, sidea, sideb, sidec)
-	else:
-		print "now solving a non-right angled triangle with the values given"
-		nonrightsolve(angleA, angleB, angleC, sidea, sideb, sidec)
+	
+	
+	
+	#	if  isright == True:
+#		print "now solving a right angled triangled with the values provided", "\n Label and input your triangle so that A is a known angle and C is the 90 degree angle"
+#		rightanglesolve(angleA, angleB, angleC, sidea, sideb, sidec)
+#	else:
+#		print "now solving a non-right angled triangle with the values given"
+#		nonrightsolve(angleA, angleB, angleC, sidea, sideb, sidec)
 	
 
 def angleinput(noofangles):
