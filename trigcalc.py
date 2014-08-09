@@ -48,7 +48,7 @@ def main():
 				print "insufficient sides"
 		elif noofangles >= 2:
 			print "nothing ehre"
-	print("\nAngle A: ", math.degrees(angleA), "\nAngle B: ", math.degrees(angleB), "\nAngle C: 90 (cuz it's a right triangle duh)", math.degrees(angleC), "\nSide a: ", sidea, "\nSide b: ", sideb, "\nSide c: ", sidec) #delete print of angle C soon, just want to see what it actually ends up as
+	print("Angle A: ", math.degrees(angleA), "Angle B: ", math.degrees(angleB), "\nAngle C: 90 (cuz it's a right triangle duh)", math.degrees(angleC), "\nSide a: ", sidea, "\nSide b: ", sideb, "\nSide c: ", sidec) 
 		
 		
 def angleinput():
@@ -86,7 +86,7 @@ def sideinput():
 	sideb = 0
 	sidec = 0
 		
-	SidesKnown = raw_input("Enter the sides you know the value to (so enter a, b, and/or c") 
+	SidesKnown = raw_input("Enter the sides you know the value to (so enter a, b, and/or c): ") 
 	
 	def SideInputA(): 
 		sidea = int(raw_input("Enter the value of Side A: "))
