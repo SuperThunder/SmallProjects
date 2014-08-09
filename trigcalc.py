@@ -46,11 +46,11 @@ def main():
 			else:
 				print "insufficient sides"
 		elif noofangles >= 2:
-			if 
-	print "\nAngle A: ", angleA, "\nAngle B: ", angleB, "\nAngle C: 90 (cuz it's a right triangle duh", angleC, "Side a: ", sidea, "Side b: ", sideb "Side c: ", sidec #delete print of angle C soon, just want to see what it actually ends up as
+			print "nothing ehre"
+	print("\nAngle A: ", angleA, "\nAngle B: ", angleB, "\nAngle C: 90 (cuz it's a right triangle duh)", angleC, "\nSide a: ", sidea, "\nSide b: ", sideb, "\nSide c: ", sidec) #delete print of angle C soon, just want to see what it actually ends up as
 		
 		
-def angleinput(noofangles):
+def angleinput():
 
 	angleA = 0 # don't ask why this is here. it makes python happy.
 	angleB = 0
@@ -72,9 +72,9 @@ def angleinput(noofangles):
 		
 	if 'a' in AnglesKnown.lower():
 		angleA = AngleInputA()
-	elif 'b' in SidesKnown:
+	elif 'b' in AnglesKnown:
 		angleB = AngleInputB()
-	elif 'c' in SidesKnown:
+	elif 'c' in AnglesKnown:
 		angleC = AngleInputC()
 		
 #	if noofangles == 1:
@@ -89,7 +89,7 @@ def angleinput(noofangles):
 	
 	return(angleA, angleB, angleC)
 	
-def sideinput(noofsides):
+def sideinput():
 
 	sidea = 0
 	sideb = 0
