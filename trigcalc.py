@@ -15,7 +15,7 @@ def main():
 
 
 	
-	angleA, angleB, angleC = angleinput()	
+	angleA, angleB, angleC, noofangles, AnglesKnown = angleinput()	
 	sidea, sideb, sidec, SidesKnown = sideinput() 
 	
 	angleA = math.radians(angleA) #convert ro radians from degrees as Python's trig functions use radians
@@ -88,7 +88,7 @@ def angleinput():
 	if 'c' in AnglesKnown.lower():
 		angleC = AngleInputC()
 		noofangles += 1
-	return(angleA, angleB, angleC)
+	return(angleA, angleB, angleC, noofangles, AnglesKnown)
 	
 def sideinput():
 
