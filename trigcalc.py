@@ -38,28 +38,28 @@ def main():
 	else:
 		print "now solving a non-right angled triangle with the values given"
 		if noofangles == 1:
-			if 'a' and 'b' in SidesKnown:
+			if 'a' in SidesKnown and 'b' in SidesKnown:
 				angleA, angleB, angleC, sidea, sideb, sidec = trisolve.AngASidab(angleA, sidea, sideb)
-			elif 'a' and 'c' in SidesKnown:
+			if 'a' in SidesKnown and 'c' in SidesKnown:
 				angleA, angleB, angleC, sidea, sideb, sidec = trisolve.AngASidac(angleA, sidea, sidec)
-			elif 'b' and 'c' in SidesKnown:
+			if 'b' in SidesKnown and 'c' in SidesKnown:
 				angleA, angleB, angleC, sidea, sideb, sidec = trisolve.AngASidbc(angleA, sideb, sidec)
 			else:
 				print "insufficient sides"
 		elif noofangles >= 2:
-			if 'a' and 'b' in AnglesKnown.lower():
+			if 'a' in AnglesKnown and 'b' in AnglesKnown.lower():
 				angleA, angleB, angleC, sidea, sideb, sidec = trisolve.SidaAngAB(sidea, angleA, angleB)
-			elif 'a' and 'c' in AnglesKnown.lower():
+			elif 'a' in AnglesKnown and 'c' in AnglesKnown.lower():
 				angleA, angleB, angleC, sidea, sideb, sidec = trisolve.SidaAngAC(sidea, angleA, angleC)
-			elif 'b' and 'c' in AnglesKnown.lower():
+			elif 'b' in AnglesKnown and 'c' in AnglesKnown.lower():
 				angleA, angleB, angleC, sidea, sideb, sidec = trisolve.SidaAngBC(sidea, angleB, angleC)
 			else:
 				print "insufficient angles"
 			
-		results = ("\nAngle A: " + str(math.degrees(angleA)) + "\nAngle B: " + str(math.degrees(angleB)) + "\nAngle C: ", + str(math.degress(angleB)) + "\nSide a: " + str(sidea) + "\nSide b: " + str(sideb) + "\nSide c: " + str(sidec))
+		results = ("\nAngle A: " + str(math.degrees(angleA)) + "\nAngle B: " + str(math.degrees(angleB)) + "\nAngle C: " + str(math.degrees(angleC)) + "\nSide a: " + str(sidea) + "\nSide b: " + str(sideb) + "\nSide c: " + str(sidec))
 		print results	
 		
-def angleinput():
+def angleinput(): 
 
 	angleA = 0 # don't ask why this is here. it makes python happy.
 	angleB = 0
@@ -138,9 +138,9 @@ class TrigFunctions(object): #the idea with this class was to have all the base 
 		angleB = math.atan(sideb/sidea)
 		return(angleA, angleB, sidea, sideb, sidec)
 	def Sidabc(self, sidea, sideb, sidec):
-		angleA = math.acos((sidea^2-sideb^2-sidec^2)/(-2*sideb*sidec))
-		angleB = math.acos((sidea^2-sideb^2-sidec^2)/(-2*sidea*sidec))
-		angleC = math.acos((sidea^2-sideb^2-sidec^2)/(-2*sidea*sideb))
+		angleA = math.acos((sidea**2-sideb**2-sidec**2)/(-2*sideb*sidec))
+		angleB = math.acos((sidea**2-sideb**2-sidec**2)/(-2*sidea*sidec))
+		angleC = math.acos((sidea**2-sideb**2-sidec**2)/(-2*sidea*sideb))
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
 	def AngASidab(self, angleA, sidea, sideb):
 		angleB = math.asin((math.sin(angleA)/sidea)*sideb)
@@ -153,9 +153,9 @@ class TrigFunctions(object): #the idea with this class was to have all the base 
 		sideb = (sidea/math.sin(angleA))*math.sin(angleB)
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
 	def AngASidbc(self, angleA, sideb, sidec):
-		sidea = math.sqrt((sideb^2+sidec^2)-2*sideb*sidec*math.cos(angleA))
-		angleB = math.acos((sidea^2-sideb^2-sidec^2)/(-2*sidea*sidec))
-		angleC = 180 - angleA - angleC
+		sidea = math.sqrt((sideb**2+sidec**2)-2*sideb*sidec*math.cos(angleA))
+		angleB = math.acos((sidea**2-sideb**2-sidec**2)/(-2*sidea*sidec))
+		angleC = 180 - angleA - angleB
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
 	def SidaAngAB(self, sidea, angleA, angleB):
 		angleC = 180 - angleA - angleB
