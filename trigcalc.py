@@ -64,6 +64,7 @@ def angleinput():
 	angleA = 0 # don't ask why this is here. it makes python happy.
 	angleB = 0
 	angleC = 0
+	noofangles = 0
 	
 	AnglesKnown = raw_input("Enter the angles you know the value to (so enter A, B, and/or C)")
 	
