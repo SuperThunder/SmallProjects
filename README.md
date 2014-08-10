@@ -6,6 +6,8 @@ A basic and buggy python trigonometry calculator.
 
 HISTORY--------------------------------------------------------------------------------------------------------------------
 
+09/08/14: So much stuff I'll probably forget most of it. Finished trigfunctions class, redid the noofangles counting system, turned the results printing system into something acceptable, fixed noofangles and results system after they promptly broke again.
+
 08/08/14: Scrapped the crappy rightsolve and nonrightsolve methods for a class under which all the solving functions are contained, which will be called from main or a central solving method/class that derives from the trigfunctions class.
 Still to add to the trigfunctions class is functions/methods (w/e they're called for this implementation) that are for a case of two angles and one side known.
 
