@@ -35,21 +35,29 @@ def main():
 			angleA, angleB, sidea, sideb, sidec = trisolve.AngASidc(angleA, sidec)
 		elif 'a' and 'b' and 'c' in SidesKnown: 
 			angleA, angleB, sidea, sideb, sidec = trisolve.Sidabc(sidea, sideb, sidec)
+		results = ("\nAngle A: " + str(math.degrees(angleA)) + "\nAngle B: " + str(math.degrees(angleB)) + "\nAngle C: 90 (cuz it's a right triangle duh)" + "\nSide a: " + str(sidea) + "\nSide b: " + str(sideb) + "\nSide c: " + str(sidec))
+		print results
 	else:
 		print "now solving a non-right angled triangle with the values given"
 		if noofangles == 1:
 			if 'a' and 'b' in SidesKnown:
-				angleA, angleB, sidea, sideb, sidec = trisolve.AngASidab(angleA, sidea, sideb)
+				angleA, angleB, angleC sidea, sideb, sidec = trisolve.AngASidab(angleA, sidea, sideb)
 			elif 'a' and 'c' in SidesKnown:
-				angleA, angleB, sidea, sideb, sidec = trisolve.AngASidac(angleA, sidea, sidec)
+				angleA, angleB, angleC, sidea, sideb, sidec = trisolve.AngASidac(angleA, sidea, sidec)
 			elif 'b' and 'c' in SidesKnown:
-				angleA, angleB, sidea, sideb, sidec = trisolve.AngASidbc(angleA, sideb, sidec)
+				angleA, angleB, angleC, sidea, sideb, sidec = trisolve.AngASidbc(angleA, sideb, sidec)
 			else:
 				print "insufficient sides"
 		elif noofangles >= 2:
-			print "nothing ehre"
-	results = ("\nAngle A: " + str(math.degrees(angleA)) + "\nAngle B: " + str(math.degrees(angleB)) + "\nAngle C: 90 (cuz it's a right triangle duh)" + "\nSide a: " + str(sidea) + "\nSide b: " + str(sideb) + "\nSide c: " + str(sidec))
-	print results	
+			if 'a' in AnglesKnown.lower():
+				
+			elif 'b' in AnglesKnown.lower():
+				
+			elif 'c' in AnglesKnown.lower():
+				
+		
+		results = ("\nAngle A: " + str(math.degrees(angleA)) + "\nAngle B: " + str(math.degrees(angleB)) + "\nAngle C: ", + str(math.degress(angleB)) + "\nSide a: " + str(sidea) + "\nSide b: " + str(sideb) + "\nSide c: " + str(sidec))
+		print results	
 		
 def angleinput():
 
@@ -73,9 +81,9 @@ def angleinput():
 		
 	if 'a' in AnglesKnown.lower():
 		angleA = AngleInputA()
-	elif 'b' in AnglesKnown:
+	elif 'b' in AnglesKnown.lower():
 		angleB = AngleInputB()
-	elif 'c' in AnglesKnown:
+	elif 'c' in AnglesKnown.lower():
 		angleC = AngleInputC()
 	
 	return(angleA, angleB, angleC)
