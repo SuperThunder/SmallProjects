@@ -3,98 +3,98 @@ print "crappytrigcalc\n"
 import math #used for trigonometric functions
 
 def main():
+	if __name__ == '__main__':	
+		while True:
 	
-	while True:
+			trisolve = TrigFunctions()
 	
-		trisolve = TrigFunctions()
-	
-		if raw_input("is the triangle right-angled (y/n)") == "y": #find whether triangle is right
-			isright = True
-			"\n Label and input your triangle so that A is a known angle and C is the 90 degree angle"
-		else:
-			isright = False
+			if raw_input("is the triangle right-angled (y/n)") == "y": #find whether triangle is right
+				isright = True
+				"\n Label and input your triangle so that A is a known angle and C is the 90 degree angle"
+			else:
+				isright = False
 	
 
 
 	
-		angleA, angleB, angleC, noofangles, AnglesKnown = angleinput()	
-		sidea, sideb, sidec, SidesKnown = sideinput() 
+			angleA, angleB, angleC, noofangles, AnglesKnown = angleinput()	
+			sidea, sideb, sidec, SidesKnown = sideinput() 
 	
-		angleA = math.radians(angleA) #convert ro radians from degrees as Python's trig functions use radians
-		angleB = math.radians(angleB)
-		angleC = math.radians(angleC)
+			angleA = math.radians(angleA) #convert ro radians from degrees as Python's trig functions use radians
+			angleB = math.radians(angleB)
+			angleC = math.radians(angleC)
 	
-		if  isright == True:
-			angleC = 90
-			print "now solving a right angled triangled with the values provided"
-			if 'a' in SidesKnown:
-				angleA, angleB, sidea, sideb, sidec = trisolve.AngASida(angleA, sidea)
-			elif 'b' in SidesKnown:
-				angleA, angleB, sidea, sideb, sidec = trisolve.AngASidb(angleA, sideb)
-			elif 'c' in SidesKnown:
-				angleA, angleB, sidea, sideb, sidec = trisolve.AngASidc(angleA, sidec)
-			elif 'a' and 'b' and 'c' in SidesKnown: 
-				angleA, angleB, sidea, sideb, sidec = trisolve.Sidabc(sidea, sideb, sidec)
-			results = ("\nAngle A: " + str(math.degrees(angleA)) + "\nAngle B: " + str(math.degrees(angleB)) + "\nAngle C: 90 (cuz it's a right triangle duh)" + "\nSide a: " + str(sidea) + "\nSide b: " + str(sideb) + "\nSide c: " + str(sidec))
-		else:
-			print "now solving a non-right angled triangle with the values given", SidesKnown, AnglesKnown
-			if noofangles == 1:
-				if 'a' in SidesKnown and 'b' in SidesKnown:
-					angleA, angleB, angleC, sidea, sideb, sidec = trisolve.AngASidab(angleA, sidea, sideb)
-				if 'a' in SidesKnown and 'c' in SidesKnown:
-					angleA, angleB, angleC, sidea, sideb, sidec = trisolve.AngASidac(angleA, sidea, sidec)
-				if 'b' in SidesKnown and 'c' in SidesKnown:
-					angleA, angleB, angleC, sidea, sideb, sidec = trisolve.AngASidbc(angleA, sideb, sidec)
-				else:
-					print "insufficient sides"
-					break
+			if  isright == True:
+				angleC = 90
+				print "now solving a right angled triangle with the values provided"
+				if 'a' in SidesKnown and not 'b' in SidesKnown or 'c' in SidesKnown:
+					angleA, angleB, sidea, sideb, sidec = trisolve.AngASida(angleA, sidea)
+				elif 'b' in SidesKnown and not 'a' in SidesKnown or 'c' in SidesKnown:
+					angleA, angleB, sidea, sideb, sidec = trisolve.AngASidb(angleA, sideb)
+				elif 'c' in SidesKnown and not 'b' in SidesKnown or 'a' in SidesKnown:
+					angleA, angleB, sidea, sideb, sidec = trisolve.AngASidc(angleA, sidec)
+				elif 'a' and 'b' and 'c' in SidesKnown: 
+					angleA, angleB, sidea, sideb, sidec = trisolve.Sidabc(sidea, sideb, sidec)
+				results = ("\nAngle A: " + str(math.degrees(angleA)) + "\nAngle B: " + str(math.degrees(angleB)) + "\nAngle C: 90 (cuz it's a right triangle duh)" + "\nSide a: " + str(sidea) + "\nSide b: " + str(sideb) + "\nSide c: " + str(sidec))
+			else:
+				print "now solving a non-right angled triangle with the values given", SidesKnown, AnglesKnown
+				if noofangles == 1:
+					if 'a' in SidesKnown and 'b' in SidesKnown:
+						angleA, angleB, angleC, sidea, sideb, sidec = trisolve.AngASidab(angleA, sidea, sideb)
+					if 'a' in SidesKnown and 'c' in SidesKnown:
+						angleA, angleB, angleC, sidea, sideb, sidec = trisolve.AngASidac(angleA, sidea, sidec)
+					if 'b' in SidesKnown and 'c' in SidesKnown:
+						angleA, angleB, angleC, sidea, sideb, sidec = trisolve.AngASidbc(angleA, sideb, sidec)
+					else:
+						print "insufficient sides"
+						break
 
-			elif noofangles >= 2:
-				if 'a' in AnglesKnown.lower() and 'b' in AnglesKnown.lower():
-					angleA, angleB, angleC, sidea, sideb, sidec = trisolve.SidaAngAB(sidea, angleA, angleB)
-				elif 'a' in AnglesKnown.lower() and 'c' in AnglesKnown.lower():
-					angleA, angleB, angleC, sidea, sideb, sidec = trisolve.SidaAngAC(sidea, angleA, angleC)
-				elif 'b' in AnglesKnown.lower() and 'c' in AnglesKnown.lower():
-					angleA, angleB, angleC, sidea, sideb, sidec = trisolve.SidaAngBC(sidea, angleB, angleC)
-				else:
-					print "insufficient angles"
-					break
+				elif noofangles >= 2:
+					if 'a' in AnglesKnown.lower() and 'b' in AnglesKnown.lower():
+						angleA, angleB, angleC, sidea, sideb, sidec = trisolve.SidaAngAB(sidea, angleA, angleB)
+					elif 'a' in AnglesKnown.lower() and 'c' in AnglesKnown.lower():
+						angleA, angleB, angleC, sidea, sideb, sidec = trisolve.SidaAngAC(sidea, angleA, angleC)
+					elif 'b' in AnglesKnown.lower() and 'c' in AnglesKnown.lower():
+						angleA, angleB, angleC, sidea, sideb, sidec = trisolve.SidaAngBC(sidea, angleB, angleC)
+					else:
+						print "insufficient angles"
+						break
 			
-			results = ("\nAngle A: " + str(math.degrees(angleA)) + "\nAngle B: " + str(math.degrees(angleB)) + "\nAngle C: " + str(math.degrees(angleC)) + "\nSide a: " + str(sidea) + "\nSide b: " + str(sideb) + "\nSide c: " + str(sidec))
-		print results	
+				results = ("\nAngle A: " + str(math.degrees(angleA)) + "\nAngle B: " + str(math.degrees(angleB)) + "\nAngle C: " + str(math.degrees(angleC)) + "\nSide a: " + str(sidea) + "\nSide b: " + str(sideb) + "\nSide c: " + str(sidec))
+			print results	
 		
-def angleinput(): 
+	def angleinput(): 
 
-	angleA = 0 # don't ask why this is here. it makes python happy.
-	angleB = 0
-	angleC = 0
-	noofangles = 0
+		angleA = 0 # don't ask why this is here. it makes python happy.
+		angleB = 0
+		angleC = 0
+		noofangles = 0
 	
-	AnglesKnown = raw_input("Enter the angles you know the value to (so enter A, B, and/or C)")
+		AnglesKnown = raw_input("Enter the angles you know the value to (so enter A, B, and/or C)")
 	
-	def AngleInputA():
-		angleA = int(raw_input("Enter the value of Angle A: "))
-		return angleA
+		def AngleInputA():
+			angleA = int(raw_input("Enter the value of Angle A: "))
+			return angleA
 	
-	def AngleInputB():
-		angleB = int(raw_input("Enter the value of Angle B: "))
-		return angleB
+		def AngleInputB():
+			angleB = int(raw_input("Enter the value of Angle B: "))
+			return angleB
 	
-	def AngleInputC():
-		angleC = int(raw_input("Enter the value of Angle C: "))	
-		return angleC
+		def AngleInputC():
+			angleC = int(raw_input("Enter the value of Angle C: "))	
+			return angleC
 		
-	if 'a' in AnglesKnown.lower():
-		angleA = AngleInputA()
-		noofangles += 1
-	if 'b' in AnglesKnown.lower():
-		angleB = AngleInputB()
-		noofangles += 1
-	if 'c' in AnglesKnown.lower():
-		angleC = AngleInputC()
-		noofangles += 1
-	print noofangles
-	return(angleA, angleB, angleC, noofangles, AnglesKnown)
+		if 'a' in AnglesKnown.lower():
+			angleA = AngleInputA()
+			noofangles += 1
+		if 'b' in AnglesKnown.lower():
+			angleB = AngleInputB()
+			noofangles += 1
+		if 'c' in AnglesKnown.lower():
+			angleC = AngleInputC()
+			noofangles += 1
+		print noofangles
+		return(angleA, angleB, angleC, noofangles, AnglesKnown)
 	
 def sideinput():
 
