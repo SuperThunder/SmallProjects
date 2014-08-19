@@ -27,14 +27,15 @@ def main():
 			if  isright == True:
 				angleC = 90
 				print "now solving a right angled triangle with the values provided"
-				if 'a' in SidesKnown and not 'b' in SidesKnown or 'c' in SidesKnown:
+				if 'a' in SidesKnown and not 'b' in SidesKnown and not 'c' in SidesKnown:
 					angleA, angleB, sidea, sideb, sidec = trisolve.AngASida(angleA, sidea)
-				elif 'b' in SidesKnown and not 'a' in SidesKnown or 'c' in SidesKnown:
+				elif 'b' in SidesKnown and not 'a' in SidesKnown and not 'c' in SidesKnown:
 					angleA, angleB, sidea, sideb, sidec = trisolve.AngASidb(angleA, sideb)
-				elif 'c' in SidesKnown and not 'b' in SidesKnown or 'a' in SidesKnown:
+				elif 'c' in SidesKnown and not 'b' in SidesKnown and not 'a' in SidesKnown:
 					angleA, angleB, sidea, sideb, sidec = trisolve.AngASidc(angleA, sidec)
 				elif 'a' and 'b' and 'c' in SidesKnown: 
-					angleA, angleB, sidea, sideb, sidec = trisolve.Sidabc(sidea, sideb, sidec)
+					angleA, angleB, angleC, sidea, sideb, sidec = trisolve.Sidabc(sidea, sideb, sidec)
+					print angleA, angleB, angleC #debugging prints since output was completely wrong
 				results = ("\nAngle A: " + str(math.degrees(angleA)) + "\nAngle B: " + str(math.degrees(angleB)) + "\nAngle C: 90 (cuz it's a right triangle duh)" + "\nSide a: " + str(sidea) + "\nSide b: " + str(sideb) + "\nSide c: " + str(sidec))
 			else:
 				print "now solving a non-right angled triangle with the values given", SidesKnown, AnglesKnown
@@ -59,7 +60,11 @@ def main():
 					else:
 						print "insufficient angles"
 						break
-			
+				elif noofangles == 0:
+					angleA, angleB, angleC, sidea, sideb, sidec = trisolve.Sidabc(sidea, sideb, sidec)
+									
+
+							
 				results = ("\nAngle A: " + str(math.degrees(angleA)) + "\nAngle B: " + str(math.degrees(angleB)) + "\nAngle C: " + str(math.degrees(angleC)) + "\nSide a: " + str(sidea) + "\nSide b: " + str(sideb) + "\nSide c: " + str(sidec))
 			print results	
 		
@@ -142,10 +147,10 @@ class TrigFunctions(object): #the idea with this class was to have all the base 
 		sideb = sidea/(math.tan(angleA)) #equations here and for angleB are copied from AngASida, in future should rewrite to use given values
 		angleB = math.atan(sideb/sidea)
 		return(angleA, angleB, sidea, sideb, sidec)
-	def Sidabc(self, sidea, sideb, sidec):
-		angleA = math.acos((sidea**2-sideb**2-sidec**2)/(-2*sideb*sidec))
-		angleB = math.acos((sidea**2-sideb**2-sidec**2)/(-2*sidea*sidec))
-		angleC = math.acos((sidea**2-sideb**2-sidec**2)/(-2*sidea*sideb))
+	def Sidabc(self, sidea, sideb, sidec): #cos law under here previously have a - where a + should have been, other parts may still be broken
+		angleA = math.acos((sideb**2+sidec**2-sidea**2)/(-2*sideb*sidec))
+		angleB = math.acos((sidea**2+sidec**2-sideb**2)/(-2*sidea*sidec))
+		angleC = math.acos((sidea**2+sideb**2-sidec**2)/(-2*sidea*sideb))
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
 	def AngASidab(self, angleA, sidea, sideb):
 		angleB = math.asin((math.sin(angleA)/sidea)*sideb)
