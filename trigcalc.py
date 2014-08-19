@@ -20,7 +20,7 @@ def main():
 			angleA, angleB, angleC, noofangles, AnglesKnown = angleinput()	
 			sidea, sideb, sidec, SidesKnown = sideinput() 
 	
-			angleA = math.radians(angleA) #convert ro radians from degrees as Python's trig functions use radians
+			angleA = math.radians(angleA) #convert to radians from degrees as Python's trig functions use radians
 			angleB = math.radians(angleB)
 			angleC = math.radians(angleC)
 	
@@ -63,38 +63,38 @@ def main():
 				results = ("\nAngle A: " + str(math.degrees(angleA)) + "\nAngle B: " + str(math.degrees(angleB)) + "\nAngle C: " + str(math.degrees(angleC)) + "\nSide a: " + str(sidea) + "\nSide b: " + str(sideb) + "\nSide c: " + str(sidec))
 			print results	
 		
-	def angleinput(): 
+def angleinput(): 
 
-		angleA = 0 # don't ask why this is here. it makes python happy.
-		angleB = 0
-		angleC = 0
-		noofangles = 0
+	angleA = 0 # don't ask why this is here. it makes python happy.
+	angleB = 0
+	angleC = 0
+	noofangles = 0
 	
-		AnglesKnown = raw_input("Enter the angles you know the value to (so enter A, B, and/or C)")
+	AnglesKnown = raw_input("Enter the angles you know the value to (so enter A, B, and/or C)")
 	
-		def AngleInputA():
-			angleA = int(raw_input("Enter the value of Angle A: "))
-			return angleA
+	def AngleInputA():
+		angleA = int(raw_input("Enter the value of Angle A: "))
+		return angleA
+
+	def AngleInputB():
+		angleB = int(raw_input("Enter the value of Angle B: "))
+		return angleB
 	
-		def AngleInputB():
-			angleB = int(raw_input("Enter the value of Angle B: "))
-			return angleB
-	
-		def AngleInputC():
-			angleC = int(raw_input("Enter the value of Angle C: "))	
-			return angleC
+	def AngleInputC():
+		angleC = int(raw_input("Enter the value of Angle C: "))	
+		return angleC
 		
-		if 'a' in AnglesKnown.lower():
-			angleA = AngleInputA()
-			noofangles += 1
-		if 'b' in AnglesKnown.lower():
-			angleB = AngleInputB()
-			noofangles += 1
-		if 'c' in AnglesKnown.lower():
-			angleC = AngleInputC()
-			noofangles += 1
-		print noofangles
-		return(angleA, angleB, angleC, noofangles, AnglesKnown)
+	if 'a' in AnglesKnown.lower():
+		angleA = AngleInputA()
+		noofangles += 1
+	if 'b' in AnglesKnown.lower():
+		angleB = AngleInputB()
+		noofangles += 1
+	if 'c' in AnglesKnown.lower():
+		angleC = AngleInputC()
+		noofangles += 1
+	print noofangles
+	return(angleA, angleB, angleC, noofangles, AnglesKnown)
 	
 def sideinput():
 
