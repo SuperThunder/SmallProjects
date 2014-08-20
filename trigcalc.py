@@ -147,7 +147,7 @@ class TrigFunctions(object): #the idea with this class was to have all the base 
 		sideb = sidea/(math.tan(angleA)) #equations here and for angleB are copied from AngASida, in future should rewrite to use given values
 		angleB = math.atan(sideb/sidea)
 		return(angleA, angleB, sidea, sideb, sidec)
-	def Sidabc(self, sidea, sideb, sidec): #cos law under here previously have a - where a + should have been, other parts may still be broken
+	def Sidabc(self, sidea, sideb, sidec): #cos law under here previously had a - where a + should have been, other parts may still be broken
 		angleA = math.acos((sideb**2+sidec**2-sidea**2)/(-2*sideb*sidec))
 		angleB = math.acos((sidea**2+sidec**2-sideb**2)/(-2*sidea*sidec))
 		angleC = math.acos((sidea**2+sideb**2-sidec**2)/(-2*sidea*sideb))
