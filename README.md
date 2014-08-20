@@ -6,6 +6,8 @@ A basic and buggy python trigonometry calculator.
 
 HISTORY--------------------------------------------------------------------------------------------------------------------
 
+19/08/14: Fixed a bunch of stuff with the cos law code and put in the instructions at the start that have to be followed for all cases to actually work. Started test case program and experimental branch (the experimental part being that the program actually works most of the time)
+
 09/08/14: So much stuff I'll probably forget most of it. Finished trigfunctions class, redid the noofangles counting system, turned the results printing system into something acceptable, fixed noofangles and results system after they promptly broke again.
 
 08/08/14: Scrapped the crappy rightsolve and nonrightsolve methods for a class under which all the solving functions are contained, which will be called from main or a central solving method/class that derives from the trigfunctions class.
