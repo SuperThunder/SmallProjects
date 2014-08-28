@@ -66,7 +66,8 @@ while(looptrue == True):
 		if "power" in runchoice.lower():
 		    power = float(raw_input("Enter the value for power, measured in Watts (W)"))
 	
-		for i in range(5): #go through all the solving equations 5 times to make really sure we have everything we can get	
+		for i in range(5): #go through all the solving equations 5 times to make really sure we have everything we can get
+#could probably simplify this a bit by having a couple of tiers for the ifs, like especially for a variable like power...	
 			if charge != -1 and time != -1:
 				current = charge/time
 			if time != -1 and current != -1:
@@ -81,18 +82,29 @@ while(looptrue == True):
 				charge = energy/voltage
 			if voltage != -1 and current != -1:
 				resistance = voltage/current
+				power = voltage*current
 			if resistance != -1 and current != -1:
 				voltage = resistance*current
+				power = resistance*current**2
 			if voltage != -1 and resistance != -1:			
 				current = voltage/resistance
+				power = voltage**2/resistance
 			if energy != -1 and time != -1:			
 				power = energy/time
 			if power != -1 and time != -1:
 				energy = power*time
 			if energy != -1 and power != -1:		
 				time = energy/power
-        
-			results = "\n" + currentstr + str(current) + "\n" + chargestr + str(charge) + "\n" + timestr + str(time) + "\n" + voltagestr + str(voltage) + "\n" + energystr + str(energy) + "\n" + resistancestr + str(resistance) + "\n" + powerstr + str(power)
-			print "Results of the calculation, a value of -1 means there was insufficient data to calculate:", results
+			if power != -1 and voltage != -1:
+				current = power/voltage
+				resistance = voltage**2/power
+			if power != -1 and resistance != -1:
+				current = (power/resistance)**0.5
+				voltage = (power*resistance)**0.5			        
+			if power != -1 and current != -1:
+				resistance = power/current**2	
+
+			results = "\n" + currentstr + str(current) + "\n" + chargestr + str(charge) + "\n" + timestr + str(time) + "\n" + voltagestr + str(voltage) + "\n" + energystr + str(energy) + "\n" + resistancestr + str(resistance) + "\n" + powerstr + str(power) + "\n"
+			print "Results of the calculation, a value of -1 means there was insufficient data to calculate:", results, "\n"
 
 	main() # Starts program
