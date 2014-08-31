@@ -70,9 +70,9 @@ def main():
 		
 def angleinput(): 
 
-	angleA = 0 # don't ask why this is here. it makes python happy.
-	angleB = 0
-	angleC = 0
+	angleA = float(0) # don't ask why this is here. it makes python happy.
+	angleB = float(0)
+	angleC = float(0)
 	noofangles = 0
 	
 	AnglesKnown = raw_input("Enter the angles you know the value to (so enter A, B, and/or C)")
@@ -103,9 +103,9 @@ def angleinput():
 	
 def sideinput():
 
-	sidea = 0
-	sideb = 0
-	sidec = 0
+	sidea = float(0)
+	sideb = float(0)
+	sidec = float(0)
 		
 	SidesKnown = raw_input("Enter the sides you know the value to (so enter a, b, and/or c): ") 
 	
