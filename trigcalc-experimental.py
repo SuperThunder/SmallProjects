@@ -132,7 +132,7 @@ class TrigFunctions(object): #the idea with this class was to have all the base 
 	def AngASida(self, angleA, sidea): #WARNING: only call 2 term functions for right angled triangle solving!
 		sidec = sidea/(math.sin(angleA))
 		sideb = sidea/(math.tan(angleA))
-		angleB = math.atan(sideb/sidea) #using trig for this isn't really necesarry, you could do 180 - the known angles
+		angleB = math.atan(sideb/sidea) #using trig for this isn't really necesarry, you could do math.pi - the known angles
 		return(angleA, angleB, sidea, sideb, sidec) # angleC is not returned here because it's the known 90 degree angle
 	def AngASidb(self, angleA, sideb):
 		sidea = (math.tan(angleA))*sideb
@@ -151,31 +151,32 @@ class TrigFunctions(object): #the idea with this class was to have all the base 
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
 	def AngASidab(self, angleA, sidea, sideb):
 		angleB = math.asin((math.sin(angleA)/sidea)*sideb)
-		angleC = 180 - angleA - angleB
+		angleC = math.pi - angleA - angleB
 		sidec = (sidea/math.sin(angleA))*math.sin(angleC)
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
 	def AngASidac(self, angleA, sidea, sidec):
 		angleC = math.asin((math.sin(angleA)/sidea)*sidec)
-		angleB = 180 - angleA - angleC
+		angleB = math.pi - angleA - angleC
 		sideb = (sidea/math.sin(angleA))*math.sin(angleB)
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
 	def AngASidbc(self, angleA, sideb, sidec):
 		sidea = math.sqrt((sideb**2+sidec**2)-2*sideb*sidec*math.cos(angleA))
 		angleB = math.acos((sidea**2-sideb**2-sidec**2)/(-2*sidea*sidec))
-		angleC = 180 - angleA - angleB
+		angleC = math.pi - angleA - angleB
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
 	def SidaAngAB(self, sidea, angleA, angleB):
-		angleC = 180 - angleA - angleB
+		angleC = math.pi - angleA - angleB
 		sideb = (sidea/math.sin(angleA))*math.sin(angleB)
 		sidec = (sidea/math.sin(angleA))*math.sin(angleC)
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
 	def SidaAngAC(self, sidea, angleA, angleC):
-		angleB = 180 - angleA - angleC
+		angleB = math.pi - angleA - angleC
+		print angleB, angleA, angleC
 		sideb = (sidea/math.sin(angleA))*math.sin(angleB)
 		sidec = (sidea/math.sin(angleA))*math.sin(angleC)
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
 	def SidaAngBC(self, sidea, angleB, angleC):
-		angleA = 180 - angleB - angleC
+		angleA = math.pi - angleB - angleC
 		sideb = (sidea/math.sin(angleA))*math.sin(angleB)
 		sidec = (sidea/math.sin(angleA))*math.sin(angleC)
 		return(angleA, angleB, angleC, sidea, sideb, sidec)
