@@ -88,10 +88,12 @@ while(looptrue == True):
     # You get the idea, these defs solve things
     def voltage():
         print valuefor, energystr # Code structure changes to efficient input form here
-        energy = raw_input("")
+        energy = float(raw_input(""))
         print valuefor, chargestr
-        charge = raw_input("")
+        charge = float(raw_input(""))
         voltage = energy / charge
+        print "The potential difference of ", energy, "joules with ", charge, "coulombs is ", voltage, "volts."
+        raw_input()
         main()
       
     def energy():
@@ -100,13 +102,18 @@ while(looptrue == True):
         print valuefor, chargestr
         charge = raw_input("")
         energy = voltage * charge
+        print "The energy used with", charge, "coulombs with a potential difference of ", voltage, "volts is ", energy, "joules."
+        raw_input()
         main()
+        
         
     def resistance():
         print valuefor, voltagestr
         voltage = raw_input("")
         print valuefor, currentstr
         resistance = voltage / current
+        raw_input()
+        print "The resistance of ", voltage, "volts with ", current, "amperes is ", resistance, "ohms."
         main()
         
     def power():
@@ -114,7 +121,9 @@ while(looptrue == True):
         energy = raw_input("")
         print valuefor, timestr
         time = raw_input("")
-        power = energy / time        
+        power = energy / time
+        print "The power of ", energy, "joules over ", time, "seconds is ", power, "watts."        
+        raw_input()
         main()
         
     main() # Starts program
