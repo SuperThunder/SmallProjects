@@ -40,16 +40,22 @@ int main(){
     
     }else{
         fprintf(stdout, "Entering computer control mode\n");
-        Rolls = 0;
+        //give int n of the not-array a rand val from 1-6: roll the dice
+        Die5 = rand()%6+1;
+        Die4 = rand()%6+1;
+        Die3 = rand()%6+1;
+        Die2 = rand()%6+1;
+        Die1 = rand()%6+1;
+        Rolls = 1;
+        fprintf(stdout, "Die1: %d Die2: %d Die3: %d Die4: %d Die5: %d\n", Die1, Die2, Die3, Die4, Die5);
+        
         //Computer autoroll
         while(Die5 != Die4 || Die5 != Die3 || Die5 != Die2 || Die5 != Die1){
+            //trying to do this with only variables is a disaster
+            //either put in one billion if(){}s or do some only slightly less complicated array stuff
+            //need to somehow find the most common value and reroll if the var/arr[n] does not have that value
+            
             Rolls += 1;
-            //give int n of the not-array a rand val from 1-6: roll the dice
-            Die5 = rand()%6+1;
-            Die4 = rand()%6+1;
-            Die3 = rand()%6+1;
-            Die2 = rand()%6+1;
-            Die1 = rand()%6+1;
             
             fprintf(stdout, "Die1: %d Die2: %d Die3: %d Die4: %d Die5: %d\n", Die1, Die2, Die3, Die4, Die5);
             //system("clear"); //looks a little nicer but runs much more slowly
