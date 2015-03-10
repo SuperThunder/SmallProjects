@@ -48,7 +48,7 @@ int main(){
         Die1 = rand()%6+1;
         Rolls = 1;
         fprintf(stdout, "Die1: %d Die2: %d Die3: %d Die4: %d Die5: %d\n", Die1, Die2, Die3, Die4, Die5);
-        int counter = 0, occurance = 0;
+        int innercounter = 0, outercounter = 0, mostcommon;
         
         int DieArray[4]; DieArray[0] = Die1; DieArray[1] = Die2; DieArray[2] = Die3; DieArray [3] = Die4; DieArray[4] = Die5;
         //Computer autoroll
@@ -56,18 +56,20 @@ int main(){
             //trying to do this with only variables is a disaster
             //either put in one billion if(){}s or do some only slightly less complicated array stuff
             //need to somehow find the most common value and reroll if the var/arr[n] does not have that value
-            for(int i = 1; i >=5; i++){
-                for(int j = 1; j >= 5; j++){
-                    for(int k = 1; k >= 5; k++){
-                        if(DieArray[k] == DieArray[i] && DieArray[k] == DieArray[j]){
-                            for(int h = 1; h >= 5; h++){
-                                if(DieArray[h] != i){
-                                    DieArray[h] = rand()%6+1;
-                                }
-                            }
-                        }
-                    }
+            for(int j = 0; j <=6; i++){ //iterate through face values
+                //fprintf(stdout, "outer loop");
+                innercounter = 0;
+                for(int k = 1; k <=4; k++){ //iterate die
+                    //fprintf(stdout, "inner loop");
+                    if(DieArray[i] == j){innercounter++; fprintf(stdout, "\nInner counter = %d", innercounter);}
                 }
+            
+            if(innercounter > outercounter){outercounter = innercounter; mostcommon = i;} //if a more common value has been found assign that value
+            
+            }
+            
+            for(int i = 0; i <= 4; i++){
+                if(DieArray[i] != DieArray[mostcommon]){DieArray[i] = rand()%6+1;}
             }
             
             fprintf(stdout, "Die1: %d Die2: %d Die3: %d Die4: %d Die5: %d\n", Die1, Die2, Die3, Die4, Die5);
