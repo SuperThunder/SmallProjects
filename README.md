@@ -7,6 +7,7 @@ sync the changes in a repository (or send them over manually) to a windows compu
 and then you can put that on your shiny Casio Prizm.
 
 Basically,
+
 1. write code
 
 2. compile on linux
