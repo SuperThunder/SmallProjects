@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//in hindsight, this much string heavy work would have been better for python
 int main(){
 	char name[127];
 	char callmkg3a[255] = ".\\\\mkg3a -n basic:";
