@@ -8,8 +8,11 @@ and then you can put that on your shiny Casio Prizm.
 
 Basically,
 1. write code
+
 2. compile on linux
+
 3. build to g3a on windows
+
 4. put on calculator
 
 Future ideas: work in some python or something that's not plain old C to automatically link the Windows machine
