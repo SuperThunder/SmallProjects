@@ -17,7 +17,7 @@ float eppc = 1.384615385; //expected points per card
 int main(){
 
     csv = fopen("probabilities.csv", "w");//make and open a .csv file to store the data in
-    fprintf(csv, "Alec Wolfe/Lucas Stack Data Management Summative Probabilities");
+    fprintf(csv, "Data Management Summative Probabilities");
     fprintf(csv, ",Generated using a C program");
 
 	int i, k, j;
