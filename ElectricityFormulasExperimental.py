@@ -1,7 +1,5 @@
 '''
 Created on Apr 25, 2-114
-
-@author: Alexander Wolfe
 '''
 
 ''' ToDo
