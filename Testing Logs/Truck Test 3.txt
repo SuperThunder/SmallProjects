@@ -1,0 +1,3 @@
+Front only test was removed. New test of all motors causing forward motion at 100% power added.
+
+Truck handled new test relatively well. Straight forward motion at a good speed was achieved, but there was an audible clicking noise from a gear meshing problem in the rear wheels. The rear wheels worked and did not cause a strain, but would likely work better if the gears did not missmesh occasionally.

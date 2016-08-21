@@ -1,0 +1,11 @@
+1. Put everything on Github
+2. Add pictures of arm and truck from multiple angles to allow reproducibiity
+3. Finish truck construction
+4. Create truck basic code
+5. Figure out a more refined overall control scheme; maybe an Android app or laptop control
+	5a. At the very least the truck should be remote controlled by BlueTooth
+	5b. It follows that the arm should also have a BT control, this would be best if done on a 			single BT link
+6. Interbrick communication: At a very basic level you can use SendRemoteBool on one NXT and ReceiveRemoteBool on the other
+	6a. Apparently you can communicate by RS485 by connecting Port 4 on both bricks (see RS485 functions in NXC GUIDE)
+
+

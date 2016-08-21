@@ -1,0 +1,8 @@
+This test was done with a motor control Android app, where with a multitouch screen you can control each motor in real time by hand.
+Front motors both responded well. However, the rear motor showed issues both with the motor and its gearing.
+
+The motor itself became "stuck" (it appeared to be stuck in the braking position, despite input).
+This was fixed by unplugging its control / power line, spinning it manually a bit, and plugging the line back in.
+The motor's gear experience issues with staying meshed both due to the geometry of the design and the fact the motor wobbled slightly.
+
+However, the front two motors are still able to easily pull the whole truck and crane weight when the rear wheels are disconnected from the motor and allowed to spin freely.
