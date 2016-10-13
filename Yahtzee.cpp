@@ -52,26 +52,7 @@ int main(){
         
         int DieArray[4]; DieArray[0] = Die1; DieArray[1] = Die2; DieArray[2] = Die3; DieArray [3] = Die4; DieArray[4] = Die5;
         //Computer autoroll
-<<<<<<< HEAD
-        while(Die5 != Die4 || Die5 != Die3 || Die5 != Die2 || Die5 != Die1){
-            //trying to do this with only variables is a disaster
-            //either put in one billion if(){}s or do some only slightly less complicated array stuff
-            //need to somehow find the most common value and reroll if the var/arr[n] does not have that value
-            for(int j = 0; j <=6; i++){ //iterate through face values
-                //fprintf(stdout, "outer loop");
-                innercounter = 0;
-                for(int k = 1; k <=4; k++){ //iterate die
-                    //fprintf(stdout, "inner loop");
-                    if(DieArray[i] == j){innercounter++; fprintf(stdout, "\nInner counter = %d", innercounter);}
-                }
-            
-            if(innercounter > outercounter){outercounter = innercounter; mostcommon = i;} //if a more common value has been found assign that value
-            
-            }
-            
-            for(int i = 0; i <= 4; i++){
-                if(DieArray[i] != DieArray[mostcommon]){DieArray[i] = rand()%6+1;}
-=======
+
         while(DieArray[4] != DieArray[3] || DieArray[4] != DieArray[2] || DieArray[4] != DieArray[1] || DieArray[4] != DieArray[0]){
             for(int j = 1; j <=6; j++){ //iterate through face values
                 innercounter = 0; //reset the counter
@@ -80,7 +61,6 @@ int main(){
                 }
             
             if(innercounter > outercounter){outercounter = innercounter; mostcommon = j;} //if a more common value has been found assign that value
->>>>>>> b8f045e4cba9564a2f2df90c6a7134fc080b342a
             }
             
             fprintf(stdout, "mostcommon # = %d\n", mostcommon);
