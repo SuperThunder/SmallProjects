@@ -1,5 +1,4 @@
-#include <iostream>
-using namespace std;
+//todo: encapsulate all functionality into one function
 
 bool signchar(char in){
 	const int SIGN_CHAR_NUM = 2;

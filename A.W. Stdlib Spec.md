@@ -73,6 +73,7 @@ A standard library to give interoperable, sane, and reliable functionality that 
 #Files
 ##A generic datatype for the contents of a file
 1. Containing all the lines of the file, and the total number of lines, the filename, and potentially the filestream (if all the lines were already read, there isn't really a reason to keep the stream open)
+2. Basic functions for filling an instance of the datatype
 
 #General notes
 + Where a function may have an option, such as case sensitive or insensitive, an enumeration shall be used in the function argument with clear values
