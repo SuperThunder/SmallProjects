@@ -37,6 +37,7 @@ A standard library to give interoperable, sane, and reliable functionality that 
 2. However, insertion may also be required
 
 ##A generic datatype for the contents and metadata of a string
++ Struct is most immediate option, but class may be more suitable long term
 
 ##General string operations
 1. A function to convert a string to upper case
