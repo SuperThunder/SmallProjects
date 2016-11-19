@@ -24,6 +24,7 @@ A standard library to give interoperable, sane, and reliable functionality that 
 ##Find the instances of one string in another, as delimited by tokens
 1. Both the string and any numbers of tokens should be arbitrily selecteable
 2. An alternate version may be strict delineation, the delineaters on both sides must be the same character (if such a function could conceivably be needed)
+3. As with string comparing, there is the possibility for out of bounds access; potentially requiring an upper bound to be given
 
 ##Return the length of a string
 1. By normal C methods, this relies on a null terminator, or some other delineator, existing in the string. This is of course extremely unsafe to expect.
