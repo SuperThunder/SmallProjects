@@ -37,6 +37,7 @@ A standard library to give interoperable, sane, and reliable functionality that 
 
 ##Slice a string out of an original string
 1. Options may be required for what is to be done with the leftover parts of the string on both the left and right
+2. One very common use of this is to copy one part, or all, of a string into another string
 
 ##Combine two strings together
 1. The most common use is likely to append or prepend one string onto another
