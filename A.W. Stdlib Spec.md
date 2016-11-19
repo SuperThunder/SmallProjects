@@ -21,9 +21,13 @@ A standard library to give interoperable, sane, and reliable functionality that 
 2. Returned will be the next instance, from a given starting point
 3. When there are no more instances, a signal will be sent
 
-##Find the instances of one string in another, as delimited by tokens
-1. Both the string and any numbers of tokens should be arbitrily selecteable
-2. An alternate version may be strict delineation, the delineaters on both sides must be the same character (if such a function could conceivably be needed)
+##Find the instances of any string in another, as delineated by a token: Simple
+1. The token is selectable and passed as an argument
+2. As with string comparing, there is the possibility for out of bounds access; potentially requiring an upper bound to be given
+
+##Find the instances of a string in another, as delineated by tokens: Adaptable
+1. Both the string and any numbers of tokens should be arbitrily selecteable; "" as the string meaning any string
+2. An alternate version may be non-strict delineation, the delineaters on both sides can be different chars; ex 'token] being valid
 3. As with string comparing, there is the possibility for out of bounds access; potentially requiring an upper bound to be given
 
 ##Return the length of a string
