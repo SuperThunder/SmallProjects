@@ -3,7 +3,7 @@ using namespace std;
 #include <fstream>
 struct infile{
 	char filename[255];
-	char* line[]; //pointer to memory that will be allocated for file
+	char* line[]; //pointer to memory that will be allocated for file lines
 	int lc; //line count	
 };
 

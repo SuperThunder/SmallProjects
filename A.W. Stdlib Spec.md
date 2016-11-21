@@ -30,6 +30,7 @@ A standard library to give interoperable, sane, and reliable functionality that 
 2. An alternate version may be non-strict delineation, the delineaters on both sides can be different chars; ex 'token] being valid
 3. As with string comparing, there is the possibility for out of bounds access; potentially requiring an upper bound to be given
 4. One optional form will be giving one array of tokens that are valid left side tokens, and one array of tokens that are valid right side tokens
+5. A token struct for containing all information about the tokens, indexes, etc may simplify information being passed and forth
 
 ##Return the length of a string
 1. By normal C methods, this relies on a null terminator, or some other delineator, existing in the string. This is of course extremely unsafe to expect.
