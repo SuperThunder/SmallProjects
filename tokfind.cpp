@@ -64,6 +64,23 @@ int tokfind(char src[], const char ltok, const char rtok, char token[], int ind)
 	return -1;
 }
 
+//returns right index when done
+int toksfind(char src[], char toks, int numtoks, char word[], int ind){
+	int indl, indr; //left and right index
+	enum states{NOTOK, LTOK, RTOK};
+	states s = NOTOK;
+	
+	//starting from an index, go until non token is found
+	//once non token is found, record word chars into word
+	//once token char is then found, return the index
+	for(int i = ind; src[i] != 0; i++){
+		
+	}
+	
+	//Should occur on no token found
+	return -1;
+}
+
 int main(){
 	char token[255];
 	char ex[] = "A string [about] tokens as a [token] test to test a token finder";

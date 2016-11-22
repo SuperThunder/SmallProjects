@@ -40,9 +40,9 @@ A standard library to give interoperable, sane, and reliable functionality that 
 1. Options may be required for what is to be done with the leftover parts of the string on both the left and right
 2. One very common use of this is to copy one part, or all, of a string into another string
 
-##Combine two strings together
+##Insert one string into another
 1. The most common use is likely to append or prepend one string onto another
-2. However, insertion may also be required
+2. However, two forms of insertion may occur: Insert and overwrite, or insert and shift the existing characters either left or right. An enumerated option would likely be needed for the more robust version of this function.
 
 ##A generic datatype for the contents and metadata of a string
 + Struct is most immediate option, but class may be more suitable long term
