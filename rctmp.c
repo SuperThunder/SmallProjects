@@ -86,30 +86,49 @@ int main( void )
 	if ( wiringPiSetup() == -1 )
 		exit( 1 );
 	
-	while ( good + bad < 100 )
+	while ( 1 )
 	{	
-		//open and close file in loop so that it updates
-		//the program may also eventually experience long delays
-		//so makes sense to not always have file open
-		out = fopen("templog.csv", "a");
-		
-		//TODO: make it retry on bad value
-		//TODO: get a value every n seconds
-		if(read_dht11_dat(&temp))
-		{
-			//TODO: get a time and date inserted here too
-			printf("Got valid: %.2f\n", temp);
-			fprintf(out, "%.2f C,\n", temp);
-		}
-		else
-		{
+			//TODO: get a value every n seconds
+			int retries = 0;
+			//open and close file in loop so that it updates
+			//the program may also eventually experience long delays
+			//so makes sense to not always have file open
+			out = fopen("templog.csv", "a");
 			
-		}
-		printf( "Good: %d Bad: %d Perc: %.1f\n", good, bad, (100.0*good)/(bad+good) );
-		
-		fclose(out);
-		//probably VERY BAD to have less than 1s between readings
-		delay( 1000 ); 
+			//make it retry on bad value up to 10
+			while( !(read_dht11_dat(&temp)) )
+			{
+				//wait 1000 until retry
+				delay( 1000 );
+				retries++;
+				
+				if(retries > 10){
+					fprintf(out, "10 Consecutive Read Errors,\n");
+				}
+			}
+			
+			//TODO: get a time and date inserted here too
+			//once we have right value, put it in here
+			time_t t;
+			struct tm * dt;
+			time( &t );
+			dt = localtime ( &t );
+			
+			printf("Got valid: %.2f\n", temp);
+			
+			//put the time in the file
+			fprintf( out, "%.24s,", asctime(dt) );
+			//fprintf("%d-%d-%d %d:%d:%d,", dt.tm_year + 1900, dt.tm_mon + 1, dt.tm_mday, dt.tm_hour, dt.tm_min, dt.tm_sec);
+			//put the value in the file
+			fprintf(out, "%.2f,\n", temp);
+			
+			printf( "Good: %d Bad: %d Perc: %.1f\n", good, bad, (100.0*good)/(bad+good) );
+			
+			fclose(out);
+			//probably VERY BAD to have less than 1s between readings
+			
+			sleep(60-retries);
+			
 	}
 	
 	
