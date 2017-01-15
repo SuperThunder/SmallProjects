@@ -2,11 +2,11 @@
 //So all the file errors were some weird issue with the Linux NBC compiler
 //Would be worth trying to use functions like RotateMotor and Wait again
 
-mutex moveMutex; //used to 'lock' the motor access so that a motor isn't given multiple instructions
-int bpower = 60;
-int apower = 45;
-int cpower = 30;
-int waittime = 20;
+mutex moveMutex; //used to 'lock' the motor access so that a motor isn't given multiple instructions, also used generally to keep only one motor acting at a time
+int basepower = 60;
+int armpower = 30;
+int clawpower = 30;
+int waittime = 100;
 
 /*
 sub rotbase(int degrees, int power){
@@ -29,6 +29,16 @@ sub init(){
 
 }*/
 
+sub buttonText(){
+    if(SENSOR_1 == 0){
+      TextOut(0, 1, "NORMAL MODE");
+    }
+    else
+    {
+       TextOut(0, 1, "ANTIDIR MODE");
+    }
+}
+
 
 task base(){
 	while(true){
@@ -36,8 +46,10 @@ task base(){
 			if(ButtonPressed(BTNLEFT, false))
 			{
 				//rotbase(-degrees, power);
+				ResetScreen();
+    buttonText();
 				Acquire(moveMutex);
-				OnRev(OUT_C, bpower);
+				OnRev(OUT_C, basepower);
 				Wait(waittime);
 				//Wait(1);
 				Off(OUT_C);
@@ -47,8 +59,10 @@ task base(){
 			if(ButtonPressed(BTNLEFT, false))
 			{
 				//rotbase(-degrees, power);
+				ResetScreen();
+    buttonText();
 				Acquire(moveMutex);
-				OnFwd(OUT_C, bpower);
+				OnFwd(OUT_C, basepower);
 				Wait(waittime);
 				//Wait(1);
 				Off(OUT_C);
@@ -68,8 +82,10 @@ task arm(){
 			if(ButtonPressed(BTNCENTER, false))
 			{
 				//rotbase(-degrees, power);
+				ResetScreen();
+    buttonText();
 				Acquire(moveMutex);
-				OnRev(OUT_B, apower);
+				OnRev(OUT_B, armpower);
 				Wait(waittime);
 				//Wait(1);
 				Off(OUT_B);
@@ -79,8 +95,10 @@ task arm(){
 			if(ButtonPressed(BTNCENTER, false))
 			{
 				//rotbase(-degrees, power);
+				ResetScreen();
+    buttonText();
 				Acquire(moveMutex);
-				OnFwd(OUT_B, apower);
+				OnFwd(OUT_B, armpower);
 				Wait(waittime);
 				//Wait(1);
 				Off(OUT_B);
@@ -97,8 +115,10 @@ task claw(){
 			if(ButtonPressed(BTNRIGHT, false))
 			{
 				//rotbase(-degrees, power);
+    ResetScreen();
+    buttonText();
 				Acquire(moveMutex);
-				OnRev(OUT_A, cpower);
+				OnRev(OUT_A, clawpower);
 				Wait(waittime);
 				//Wait(1);
 				Off(OUT_A);
@@ -108,8 +128,10 @@ task claw(){
 			if(ButtonPressed(BTNRIGHT, false))
 			{
 				//rotbase(-degrees, power);
+				ResetScreen();
+    buttonText();
 				Acquire(moveMutex);
-				OnFwd(OUT_A, cpower);
+				OnFwd(OUT_A, clawpower);
 				Wait(waittime);
 				//Wait(1);
 				Off(OUT_A);
