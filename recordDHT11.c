@@ -152,10 +152,10 @@ int main( void )
 		//print the stats on errors and the current time
 		//printf("%.24s,", asctime(dt));
 		//printf( "Good: %d Bad: %d Perc: %.1f\n", good, bad, (100.0*good)/(bad+good) );
-	
+		
 	
 	
  
-	return(0);
+	return 0;
 }
 

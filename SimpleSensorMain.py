@@ -1,6 +1,7 @@
-import subprocess
-import datetime
-import time
+import subprocess # Popen: opening shell commands
+import datetime # recording times to figure out how long to wait
+import time # sleep command
+import sys # stdout buffer write
 
 def main():
     compileInterfaces()
@@ -19,14 +20,24 @@ def compileInterfaces():
     process = subprocess.Popen(["gcc", "-o", "recordDHT11", "recordDHT11.c", "-lwiringPi", "-lwiringPiDev"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     # communicate() returns a tuple (stdoutdata, stderrdata).
     # out, err = process.communicate()
-    
+    '''
     #print(process.returncode)
     print("STDOUT\n"+("-"*80))
     print(process.stdout.read())
+    #sys.stdout.buffer.write(process.stdout.read().encode('utf8'))
     print("STDERR\n"+("-"*80)+"\n")
-    print(process.stderr.read())
+    #print(process.stderr.read())
+    sys.stdout.buffer.write(process.stdout.read().encode('utf8'))
     #print("\n")
-    out, err = process.communicate()
+    '''
+    # Stdout and stderr are returned as a UTF8 bytes object we must decode to avoid having control characters everywhere
+    stdout, stderr = process.communicate()
+    print("STDOUT\n"+("-"*80))
+    decodedStdout = stdout.decode('utf-8')
+    print("STDERR\n"+("-"*80))
+    decodedStderr = stderr.decode('utf-8')
+    print(decodedStdout)
+    print(decodedStderr)
     print("Return: "+str(process.returncode))
 
 
@@ -36,14 +47,21 @@ def interfaceDHT11():
         waitToMinute()
         
         process = subprocess.Popen(["./recordDHT11"], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
+        '''
         #print(process.returncode)
         print("STDOUT\n"+("-"*80))
         print(process.stdout.read())
         print("STDERR\n"+("-"*80)+"\n")
         print(process.stderr.read())
-        #print("\n")    
-        #out, err = process.communicate()
+        #print("\n")
+        '''
+        stdout, stderr = process.communicate()
+        print("STDOUT\n"+("-"*80))
+        decodedStdout = stdout.decode('utf-8')
+        print("STDERR\n"+("-"*80))
+        decodedStderr = stderr.decode('utf-8')
+        print(decodedStdout)
+        print(decodedStderr)
         print("Return: "+str(process.returncode))
 
     
