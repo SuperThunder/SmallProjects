@@ -78,7 +78,7 @@ int read_dht11_dat( float* temp, float* humidity )
 	} else {
 		//printf( "Data not good, skip\n" );
 		//I think it considers it bad if the checksum (dht11_dat[4]) doesn't match the individual parts
-		printf("BAD: %d.%d C\n", dht11_dat[2], dht11_dat[3]);
+		fprintf(stderr, "BAD: %d.%d C\n", dht11_dat[2], dht11_dat[3]);
 		++bad;
 		return 0;
 	}
@@ -143,7 +143,7 @@ int main( void )
 		
 		//TODO: replace sketchy CSV system with sqlite3
 		//ALSO: Find out why the recording intermitently fails
-		//put the time in the file
+		//put the time in the file, note no newline here
 		fprintf(stdout, "%.24s,", asctime(dt) );
 		//fprintf("%d-%d-%d %d:%d:%d,", dt.tm_year + 1900, dt.tm_mon + 1, dt.tm_mday, dt.tm_hour, dt.tm_min, dt.tm_sec);
 		//put the values in the file
