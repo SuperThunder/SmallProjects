@@ -72,7 +72,7 @@ int read_dht11_dat( float* temp, float* humidity )
 		++good;
 		// Currently only using the integer and not decimal digits, would be accurate except for fact this ignores rounding
 		*temp = dht11_dat[2];
-		*humidity = dht11_dat[0]
+		*humidity = dht11_dat[0];
 		//TODO: add rest of digits dht11_dat[3]/100.0;
 		return 1;
 	} else {
