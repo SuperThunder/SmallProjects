@@ -4,8 +4,11 @@ import time # sleep command
 import sys # stdout buffer write
 
 def main():
-    compileInterfaces()
-
+    try:
+        compileInterfaces()
+    except:
+        print("Compiling exception")
+    
     # TODO: thread each interface in its own thread
     interfaceDHT11()
     
@@ -18,18 +21,7 @@ def main():
 def compileInterfaces():
         
     process = subprocess.Popen(["gcc", "-o", "recordDHT11", "recordDHT11.c", "-lwiringPi", "-lwiringPiDev"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    # communicate() returns a tuple (stdoutdata, stderrdata).
-    # out, err = process.communicate()
-    '''
-    #print(process.returncode)
-    print("STDOUT\n"+("-"*80))
-    print(process.stdout.read())
-    #sys.stdout.buffer.write(process.stdout.read().encode('utf8'))
-    print("STDERR\n"+("-"*80)+"\n")
-    #print(process.stderr.read())
-    sys.stdout.buffer.write(process.stdout.read().encode('utf8'))
-    #print("\n")
-    '''
+    # communicate() returns a tuple (stdoutdata, stderrdata)
     # Stdout and stderr are returned as a UTF8 bytes object we must decode to avoid having control characters everywhere
     stdout, stderr = process.communicate()
     print("STDOUT\n"+("-"*80))
@@ -38,31 +30,31 @@ def compileInterfaces():
     decodedStderr = stderr.decode('utf-8')
     print(decodedStdout)
     print(decodedStderr)
-    print("Return: "+str(process.returncode))
+
+    ReturnCode = process.returncode
+    print("Return: "+str(ReturnCode))
 
 
 def interfaceDHT11():
     # Perform the data recording once every 60s on the :00
     while(True):
-        waitToMinute()
-        
-        process = subprocess.Popen(["./recordDHT11"], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        '''
-        #print(process.returncode)
-        print("STDOUT\n"+("-"*80))
-        print(process.stdout.read())
-        print("STDERR\n"+("-"*80)+"\n")
-        print(process.stderr.read())
-        #print("\n")
-        '''
-        stdout, stderr = process.communicate()
-        print("STDOUT\n"+("-"*80))
-        decodedStdout = stdout.decode('utf-8')
-        print("STDERR\n"+("-"*80))
-        decodedStderr = stderr.decode('utf-8')
-        print(decodedStdout)
-        print(decodedStderr)
-        print("Return: "+str(process.returncode))
+        try:
+            waitToMinute()
+            # TODO: Make a wrapper around subprocess?
+            process = subprocess.Popen(["./recordDHT11"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            
+            stdout, stderr = process.communicate()
+            print("STDOUT\n"+("-"*80))
+            decodedStdout = stdout.decode('utf-8')
+            print("STDERR\n"+("-"*80))
+            decodedStderr = stderr.decode('utf-8')
+            print(decodedStdout)
+            print(decodedStderr)
+            
+            ReturnCode = process.returncode
+            print("Return: "+str(ReturnCode))
+        except:
+            print("DHT11 interfacing exception")
 
     
 # Given the amount of seconds we are into the current minute, subtract that from 60
