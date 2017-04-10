@@ -4,6 +4,8 @@ import time # sleep command
 import sys # stdout buffer write
 import csv # Write data
 
+CSV_BUFFER_SIZE = 1
+
 def main():
     try:
         compileInterfaces()
@@ -12,9 +14,6 @@ def main():
     
     # TODO: thread each interface in its own thread
     interfaceDHT11()
-    
-    
-    
     
 
 # Compile the C programs
@@ -40,8 +39,8 @@ def interfaceDHT11():
     # Perform the data recording once every 60s on the :00
     DHT11Interface = Sensor(sensorname="DHT11", interfacecommand = "./recordDHT11")
     while(True):
-        # Every 10 entries, write what we got to CSV
-        if(len(DHT11Interface.Entries)%10 == 0):
+        # Every CSV_BUFFER_SIZE entries, write what we got to CSV
+        if(len(DHT11Interface.Entries)%CSV_BUFFER_SIZE == 0):
             DHT11Interface.EntriesToCSV()
             
         try:
@@ -82,6 +81,7 @@ def ShellCall(command):
 class Sensor:
     def __init__(self, sensorname, interfacecommand):
         self.Entries = []
+        self.EntriesBuffer = []
         self.SensorName = str(sensorname)
         self.InterfaceCommand = str(interfacecommand) # such as "./recordDHT11"
         
@@ -90,15 +90,14 @@ class Sensor:
         import csv
         # Write all the entries to a csv
         with open(file=self.SensorName+".csv", mode='a') as outputfile:
-            reader = csv.reader(outputfile)
+            reader = csv.writer(outputfile)
             for entry in self.Entries:
-                reader.writerow(entry)
+                reader.writerow(entry.split(','))
 
 
     # abstract the subprocess call here, run a certain preset command and pipe stdout to list entries
     def callInterface(self):
         try:
-            
             # TODO: Make a wrapper around subprocess?
             #process = subprocess.Popen([interfacename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             ShellCallResults = ShellCall(command=self.InterfaceCommand)
