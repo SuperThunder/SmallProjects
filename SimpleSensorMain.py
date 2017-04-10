@@ -55,6 +55,7 @@ def interfaceDHT11():
 # Given the amount of seconds we are into the current minute, subtract that from 60
 # Then wait that amount of time: We wait until the start of the next minute
 def waitToMinute():
+    # TODO: We seem to get some time drift - do we need to keep track of the exact second we need to wait to?
     currentTime = datetime.datetime.now()
     timeToWait = 60 - currentTime.second
     time.sleep(timeToWait)
