@@ -15,6 +15,7 @@ def main():
     
     
     
+    
 
 # Compile the C programs
 # If complexity grows, a makefile may be more suitable
@@ -37,22 +38,11 @@ def compileInterfaces():
 
 def interfaceDHT11():
     # Perform the data recording once every 60s on the :00
+    DHT11Interface = Sensor(sensorname="DHT11", interfacecommand = "./recordDHT11")
     while(True):
         try:
             waitToMinute()
-            # TODO: Make a wrapper around subprocess?
-            process = subprocess.Popen(["./recordDHT11"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             
-            stdout, stderr = process.communicate()
-            print("STDOUT\n"+("-"*80))
-            decodedStdout = stdout.decode('utf-8')
-            print("STDERR\n"+("-"*80))
-            decodedStderr = stderr.decode('utf-8')
-            print(decodedStdout)
-            print(decodedStderr)
-            
-            ReturnCode = process.returncode
-            print("Return: "+str(ReturnCode))
         except:
             print("DHT11 interfacing exception")
 
@@ -63,13 +53,32 @@ def waitToMinute():
     currentTime = datetime.datetime.now()
     timeToWait = 60 - currentTime.second
     time.sleep(timeToWait)
-    
 
-# Stores all the entries for a particular interface
-class DataRecord:
-    def __init__(self, name):
+# Runs a command in subprocess, waiting for it to complete, then return the result as a dictionary
+def ShellCall(command):
+    process = subprocess.Popen([command], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = process.communicate()
+
+    print("STDOUT\n"+("-"*80))
+    decodedStdout = stdout.decode('utf-8')
+    print(decodedStdout)
+    
+    print("STDERR\n"+("-"*80))
+    decodedStderr = stderr.decode('utf-8')
+    print(decodedStderr)
+            
+    ReturnCode = process.returncode
+    print("Return: "+str(ReturnCode))
+
+    return {'stdout':decodedStdout, 'stderr':decodedStderr, 'returncode':ReturnCode}
+
+# Stores the information about and output of a particular sensor
+class Sensor:
+    def __init__(self, sensorname, interfacecommand):
         self.Entries = []
         self.SensorName = str(name)
+        self.InterfaceCommand = str(interfacecommand) # such as "./recordDHT11"
+        
 
     def EntriesToCSV():
         import csv
@@ -82,24 +91,17 @@ class DataRecord:
     # abstract the subprocess call here, run a certain preset command and pipe stdout to list entries
     def callInterface():
         try:
-            waitToMinute()
+            
             # TODO: Make a wrapper around subprocess?
-            process = subprocess.Popen(["./recordDHT11"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            
-            stdout, stderr = process.communicate()
-            print("STDOUT\n"+("-"*80))
-            decodedStdout = stdout.decode('utf-8')
-            print("STDERR\n"+("-"*80))
-            decodedStderr = stderr.decode('utf-8')
-            print(decodedStdout)
-            print(decodedStderr)
-            
-            ReturnCode = process.returncode
-            print("Return: "+str(ReturnCode))
+            #process = subprocess.Popen([interfacename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            ShellCallResults = ShellCall(command=InterfaceCommand)
+            ReturnCode = ShellCallResults.'returncode'
+            StdOut = ShellCallResults.'stdout'
 
+            # TODO: get this logic up out of here
             # If the C program returned cleanly; add the (what should be) one line of comma seperated data
             if(ReturnCode == 0):
-                Entries.append(decodedStdout)
+                Entries.append(StdOut)
             
         except:
             print(SensorName+"interfacing exception")    
