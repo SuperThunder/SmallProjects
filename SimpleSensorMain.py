@@ -40,11 +40,17 @@ def interfaceDHT11():
     # Perform the data recording once every 60s on the :00
     DHT11Interface = Sensor(sensorname="DHT11", interfacecommand = "./recordDHT11")
     while(True):
+        # Every 10 entries, write what we got to CSV
+        if(len(DHT11Interface.Entries)%10 == 0):
+            DHT11Interface.EntriesToCSV()
+            
         try:
             waitToMinute()
+            DHT11Interface.callInterface()
             
         except:
-            print("DHT11 interfacing exception")
+            #print("DHT11 interfacing exception")
+            raise
 
     
 # Given the amount of seconds we are into the current minute, subtract that from 60
@@ -76,35 +82,37 @@ def ShellCall(command):
 class Sensor:
     def __init__(self, sensorname, interfacecommand):
         self.Entries = []
-        self.SensorName = str(name)
+        self.SensorName = str(sensorname)
         self.InterfaceCommand = str(interfacecommand) # such as "./recordDHT11"
         
 
-    def EntriesToCSV():
+    def EntriesToCSV(self):
         import csv
         # Write all the entries to a csv
-        with open(file=name+".csv", mode='a') as outputfile:
+        with open(file=self.SensorName+".csv", mode='a') as outputfile:
             reader = csv.reader(outputfile)
-            for entry in Entries:
+            for entry in self.Entries:
                 reader.writerow(entry)
 
+
     # abstract the subprocess call here, run a certain preset command and pipe stdout to list entries
-    def callInterface():
+    def callInterface(self):
         try:
             
             # TODO: Make a wrapper around subprocess?
             #process = subprocess.Popen([interfacename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            ShellCallResults = ShellCall(command=InterfaceCommand)
-            ReturnCode = ShellCallResults.'returncode'
-            StdOut = ShellCallResults.'stdout'
+            ShellCallResults = ShellCall(command=self.InterfaceCommand)
+            ReturnCode = ShellCallResults['returncode']
+            StdOut = ShellCallResults['stdout']
 
             # TODO: get this logic up out of here
             # If the C program returned cleanly; add the (what should be) one line of comma seperated data
             if(ReturnCode == 0):
-                Entries.append(StdOut)
-            
+                self.Entries.append(StdOut)
+                
         except:
-            print(SensorName+"interfacing exception")    
+            print(self.SensorName+"interfacing exception")
+            raise
 
 
 main()
