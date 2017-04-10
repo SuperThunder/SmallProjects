@@ -4,7 +4,7 @@ import time # sleep command
 import sys # stdout buffer write
 import csv # Write data
 
-CSV_BUFFER_SIZE = 1
+CSV_BUFFER_SIZE = 5 # TODO: Put this somewhere more sensical
 
 def main():
     try:
@@ -81,8 +81,8 @@ def ShellCall(command):
 # Stores the information about and output of a particular sensor
 class Sensor:
     def __init__(self, sensorname, interfacecommand):
-        self.Entries = []
-        self.EntriesBuffer = []
+        self.Entries = [] # List of all entries
+        self.EntriesBuffer = [] # List of entries that still need to be written to file
         self.SensorName = str(sensorname)
         self.InterfaceCommand = str(interfacecommand) # such as "./recordDHT11"
         
@@ -92,14 +92,15 @@ class Sensor:
         # Write all the entries to a csv
         with open(file=self.SensorName+".csv", mode='a') as outputfile:
             reader = csv.writer(outputfile)
-            for entry in self.Entries:
-                reader.writerow(entry.split(','))
+            #for entry in self.EntriesBuffer:
+            for i in range(0, len(self.EntriesBuffer)):
+                reader.writerow(self.EntriesBuffer.pop([0]))
+
 
 
     # abstract the subprocess call here, run a certain preset command and pipe stdout to list entries
     def callInterface(self):
         try:
-            # TODO: Make a wrapper around subprocess?
             #process = subprocess.Popen([interfacename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             ShellCallResults = ShellCall(command=self.InterfaceCommand)
             ReturnCode = ShellCallResults['returncode']
@@ -109,6 +110,7 @@ class Sensor:
             # If the C program returned cleanly; add the (what should be) one line of comma seperated data
             if(ReturnCode == 0):
                 self.Entries.append(StdOut)
+                self.EntriesBuffer.append(StdOut)
                 
         except:
             print(self.SensorName+"interfacing exception")

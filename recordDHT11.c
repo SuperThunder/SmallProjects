@@ -18,7 +18,8 @@ int good, bad;
 //^get wiringpi installed first, then
 //gcc -o example example.c -lwiringPi -lwiringPiDev 
 
-// TODO: Fully implement humidity
+// TODO: Fully implement humidity and write a proper read_dht11_dat
+// Rewrite this all in C++?
 int read_dht11_dat( float* temp, float* humidity )
 {
 	uint8_t laststate	= HIGH;
@@ -147,7 +148,7 @@ int main( void )
 		fprintf(stdout, "%.24s,", asctime(dt) );
 		//fprintf("%d-%d-%d %d:%d:%d,", dt.tm_year + 1900, dt.tm_mon + 1, dt.tm_mday, dt.tm_hour, dt.tm_min, dt.tm_sec);
 		//put the values in the file
-		fprintf(stdout, "%.2f,%.2f,\n", temp, humidity);
+		fprintf(stdout, "%.2f,%.2f,", temp, humidity);
 		
 		//print the stats on errors and the current time
 		//printf("%.24s,", asctime(dt));
