@@ -4,7 +4,7 @@ import time # sleep command
 import sys # stdout buffer write
 import csv # Write data
 
-CSV_BUFFER_SIZE = 5 # TODO: Put this somewhere more sensical
+CSV_BUFFER_SIZE = 1 # TODO: Put this somewhere more sensical
 
 def main():
     try:
@@ -40,7 +40,7 @@ def interfaceDHT11():
     DHT11Interface = Sensor(sensorname="DHT11", interfacecommand = "./recordDHT11")
     while(True):
         # Every CSV_BUFFER_SIZE entries, write what we got to CSV
-        if(len(DHT11Interface.Entries)%CSV_BUFFER_SIZE == 0):
+        if(len(DHT11Interface.EntriesBuffer)%CSV_BUFFER_SIZE == 0):
             DHT11Interface.EntriesToCSV()
             
         try:
@@ -89,12 +89,14 @@ class Sensor:
 
     def EntriesToCSV(self):
         import csv
+        
         # Write all the entries to a csv
         with open(file=self.SensorName+".csv", mode='a') as outputfile:
-            reader = csv.writer(outputfile)
+            writer = csv.writer(outputfile)
             #for entry in self.EntriesBuffer:
             for i in range(0, len(self.EntriesBuffer)):
-                reader.writerow(self.EntriesBuffer.pop([0]))
+                # csv.writer expects a list of the indiviual columns, but our C already gives it comma seperated, so we split by comma into a list just so csv.writer will add them back in
+                writer.writerow(self.EntriesBuffer.pop(0).split(","))
 
 
 
