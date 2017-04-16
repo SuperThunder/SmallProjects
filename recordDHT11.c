@@ -25,7 +25,6 @@ int read_dht11_dat( float* temp, float* humidity )
 	uint8_t laststate	= HIGH;
 	uint8_t counter		= 0;
 	uint8_t j		= 0, i;
-	//float	f; 
  
 	dht11_dat[0] = dht11_dat[1] = dht11_dat[2] = dht11_dat[3] = dht11_dat[4] = 0;
  
@@ -33,6 +32,7 @@ int read_dht11_dat( float* temp, float* humidity )
 	pinMode( DHTPIN, OUTPUT );
 	digitalWrite( DHTPIN, LOW );
 	delay( 50 ); //changed this from 18, improved things greatly
+	// 18ms MINIMUM, see: https://akizukidenshi.com/download/ds/aosong/DHT11.pdf
 	digitalWrite( DHTPIN, HIGH );
 	delayMicroseconds( 40 ); //this should probably be 40
 	pinMode( DHTPIN, INPUT );
@@ -79,6 +79,8 @@ int read_dht11_dat( float* temp, float* humidity )
 	} else {
 		//printf( "Data not good, skip\n" );
 		//I think it considers it bad if the checksum (dht11_dat[4]) doesn't match the individual parts
+		//if the raspberry pi is under generally heavier load (even a burst load)
+	//then the delay introduced by the kernel switching tasks seems to cause bad reasdings
 		fprintf(stderr, "BAD: %d.%d C\n", dht11_dat[2], dht11_dat[3]);
 		++bad;
 		return 0;
@@ -122,13 +124,13 @@ int main( void )
 		//out = fopen("templog.csv", "a");
 		//out = fopen(strOutputFilename, "a");
 		
-		//make it retry on bad value up to 10
 		while( !(read_dht11_dat(&temp, &humidity)) )
 		{
 			//wait 1000ms until retry
 			delay( 1000 );
 			retries++;
 			
+			//make it retry silently on bad values up to 10
 			if(retries > 10){
 				fprintf(stderr, "%d Consecutive Read Errors,\n", retries);
 			}
@@ -145,14 +147,14 @@ int main( void )
 		//TODO: replace sketchy CSV system with sqlite3
 		//ALSO: Find out why the recording intermitently fails
 		//put the time in the file, note no newline here
-		fprintf(stdout, "%.24s,", asctime(dt) );
+		fprintf(stdout, "%s,", asctime(dt) );
 		//fprintf("%d-%d-%d %d:%d:%d,", dt.tm_year + 1900, dt.tm_mon + 1, dt.tm_mday, dt.tm_hour, dt.tm_min, dt.tm_sec);
 		//put the values in the file
 		fprintf(stdout, "%.2f,%.2f,", temp, humidity);
 		
 		//print the stats on errors and the current time
 		//printf("%.24s,", asctime(dt));
-		//printf( "Good: %d Bad: %d Perc: %.1f\n", good, bad, (100.0*good)/(bad+good) );
+		//fprintf(stderr, "Good: %d Bad: %d Perc: %.1f\n", good, bad, (100.0*good)/(bad+good) );
 		
 	
 	

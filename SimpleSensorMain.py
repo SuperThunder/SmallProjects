@@ -34,7 +34,7 @@ def compileInterfaces():
     ReturnCode = process.returncode
     print("Return: "+str(ReturnCode))
 
-
+# TODO: Rewrite interface in Cython around C++ custom code
 def interfaceDHT11():
     # Perform the data recording once every 60s on the :00
     DHT11Interface = Sensor(sensorname="DHT11", interfacecommand = "./recordDHT11")
@@ -45,6 +45,7 @@ def interfaceDHT11():
             
         try:
             waitToMinute()
+            # TODO: Start recording success/failure rates
             DHT11Interface.callInterface()
             
         except:
@@ -55,7 +56,6 @@ def interfaceDHT11():
 # Given the amount of seconds we are into the current minute, subtract that from 60
 # Then wait that amount of time: We wait until the start of the next minute
 def waitToMinute():
-    # TODO: We seem to get some time drift - do we need to keep track of the exact second we need to wait to?
     currentTime = datetime.datetime.now()
     timeToWait = 60 - currentTime.second
     time.sleep(timeToWait)
@@ -85,7 +85,8 @@ class Sensor:
         self.EntriesBuffer = [] # List of entries that still need to be written to file
         self.SensorName = str(sensorname)
         self.InterfaceCommand = str(interfacecommand) # such as "./recordDHT11"
-        
+        self.GoodRecordings = 0 # For getting a % of how many sensor recordings fail
+        self.BadRecordings = 0
 
     def EntriesToCSV(self):
         import csv
@@ -99,7 +100,6 @@ class Sensor:
                 writer.writerow(self.EntriesBuffer.pop(0).split(","))
 
 
-
     # abstract the subprocess call here, run a certain preset command and pipe stdout to list entries
     def callInterface(self):
         try:
@@ -107,13 +107,19 @@ class Sensor:
             ShellCallResults = ShellCall(command=self.InterfaceCommand)
             ReturnCode = ShellCallResults['returncode']
             StdOut = ShellCallResults['stdout']
+            StdErr = ShellCallResults['stderr']
+            self.BadRecordings += len(StdErr.split("\n"))-1
 
             # TODO: get this logic up out of here
             # If the C program returned cleanly; add the (what should be) one line of comma seperated data
             if(ReturnCode == 0):
                 self.Entries.append(StdOut)
                 self.EntriesBuffer.append(StdOut)
-                
+                self.GoodRecordings += 1 # Would this make more sense somewhere else?
+
+            SuccessRate = (float(self.GoodRecordings)/float(self.BadRecordings+self.GoodRecordings))*100
+            print("Success Rate: %.2f\t(Good: %d, Bad: %d)"%(SuccessRate, self.GoodRecordings, self.BadRecordings))
+            
         except:
             print(self.SensorName+"interfacing exception")
             raise
