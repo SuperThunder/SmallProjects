@@ -147,7 +147,7 @@ int main( void )
 		//TODO: replace sketchy CSV system with sqlite3
 		//ALSO: Find out why the recording intermitently fails
 		//put the time in the file, note no newline here
-		fprintf(stdout, "%s,", asctime(dt) );
+		fprintf(stdout, "%.24s,", asctime(dt) );
 		//fprintf("%d-%d-%d %d:%d:%d,", dt.tm_year + 1900, dt.tm_mon + 1, dt.tm_mday, dt.tm_hour, dt.tm_min, dt.tm_sec);
 		//put the values in the file
 		fprintf(stdout, "%.2f,%.2f,", temp, humidity);
