@@ -4,6 +4,7 @@ import time # sleep command
 import sys # stdout buffer write
 import csv # Write data
 
+# How many entries we should gather before writing them to file. Min 1, set to higher if you want to lower file accesses.
 CSV_BUFFER_SIZE = 1 # TODO: Put this somewhere more sensical
 
 
@@ -17,7 +18,7 @@ def interfaceDHT11():
     # Perform the data recording once every 60s on the :00
     CompileStr = ["g++", "-std=c++11", "-o", "recordDHT11++", "recordDHT11++.cpp", "-lwiringPi", "-lwiringPiDev"]
     Header = ["Datetime", "Temperature", "Humidity"]
-    DHT11Interface = Sensor(sensorname="DHT11", source=CompileStr, command = ["./recordDHT11++"], header=header)
+    DHT11Interface = Sensor(sensorname="DHT11", source=CompileStr, command = ["./recordDHT11++"], header=Header)
     DHT11Interface.CompileInterface()
     while(True):
         # Every CSV_BUFFER_SIZE entries, write what we got to CSV
@@ -83,6 +84,7 @@ class Sensor:
             #for entry in self.EntriesBuffer:
             for i in range(0, len(self.EntriesBuffer)):
                 # csv.writer expects a list of the indiviual columns, but our C already gives it comma seperated, so we split by comma into a list just so csv.writer will add them back in
+                # TODO: Handle this earleir so CSV code isn't handling string problems
                 writer.writerow(self.EntriesBuffer.pop(0).split(","))
 
 
@@ -92,7 +94,7 @@ class Sensor:
     def CompileInterface(self):
         try:
             print(self.InterfaceSource)
-            ShellCallResults = ShellCall(command=self.InterfaceSource)
+            ShellCallResults = ShellCall(command=self.InterfaceSource, verbose=True)
             ReturnCode = ShellCallResults['returncode']
             StdOut = ShellCallResults['stdout']
             StdErr = ShellCallResults['stderr']            
@@ -108,6 +110,7 @@ class Sensor:
         ValidResult = False
         while(ValidResult == False):
             try:
+                CallTime = datetime.datetime.now()
                 ShellCallResults = ShellCall(command=self.InterfaceCommand)
                 ReturnCode = ShellCallResults['returncode']
                 StdOut = ShellCallResults['stdout']
@@ -117,8 +120,9 @@ class Sensor:
                 # TODO: get this logic up out of here
                 # If the C program returned cleanly; add the (what should be) one line of comma seperated data
                 if(ReturnCode == 0):
-                    # TODO: Add datetime to result
-                    Entry = str(datetime.datetime.now())+","+str(StdOut)
+                    # TODO: Fix datetime format
+                    print("Runtime: %s"%str(datetime.datetime.now()-CallTime))
+                    Entry = str(CallTime) + ',' + str(StdOut).replace('\n', "") + ','
                     print(Entry)
                     self.Entries.append(Entry)
                     self.EntriesBuffer.append(Entry)
