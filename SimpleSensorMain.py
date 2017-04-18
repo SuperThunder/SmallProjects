@@ -108,7 +108,13 @@ class Sensor:
     # abstract the subprocess call here, run a certain preset command and pipe stdout to list entries
     def callInterface(self):
         ValidResult = False
+        Tries = 0
+        Tries_Limit = 30
         while(ValidResult == False):
+            if(Tries > Tries_Limit):
+                print("Exceeded %d tries"%Tries_limit)
+                return False
+            
             try:
                 CallTime = datetime.datetime.now()
                 ShellCallResults = ShellCall(command=self.InterfaceCommand)
@@ -132,6 +138,8 @@ class Sensor:
             except:
                 print(self.SensorName+" interfacing exception")
                 raise
+
+            Tries += 1
 
         
         SuccessRate = (float(self.GoodRecordings)/float(self.BadRecordings+self.GoodRecordings))*100
