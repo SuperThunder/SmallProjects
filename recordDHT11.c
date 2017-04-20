@@ -67,20 +67,15 @@ int read_dht11_dat( float* temp, float* humidity )
 	if ( (j >= 40) &&
 	     (dht11_dat[4] == ( (dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3]) & 0xFF) ) )
 	{
-		//f = dht11_dat[2] * 9. / 5. + 32;
-		//printf( "Humidity = %d.%d %% Temperature = %d.%d C (%.1f F)\n",
-			//dht11_dat[0], dht11_dat[1], dht11_dat[2], dht11_dat[3], f );
 		++good;
-		// Currently only using the integer and not decimal digits, would be accurate except for fact this ignores rounding
 		*temp = dht11_dat[2];
 		*humidity = dht11_dat[0];
 		//TODO: add rest of digits dht11_dat[3]/100.0;
 		return 1;
 	} else {
-		//printf( "Data not good, skip\n" );
 		//I think it considers it bad if the checksum (dht11_dat[4]) doesn't match the individual parts
 		//if the raspberry pi is under generally heavier load (even a burst load)
-	//then the delay introduced by the kernel switching tasks seems to cause bad reasdings
+		//then the delay introduced by the kernel switching tasks seems to cause bad reasdings
 		fprintf(stderr, "BAD: %d.%d C\n", dht11_dat[2], dht11_dat[3]);
 		++bad;
 		return 0;
@@ -95,70 +90,41 @@ int read_dht11_dat( float* temp, float* humidity )
 
 int main( void )
 {
-	//printf( "Raspberry Pi wiringPi DHT11 Temperature test program\n" );
 	good = bad = 0;
 	float temp;
 	float humidity;
-	//char strInputFilename[30];
-	//char strOutputFilename[30];
-	//FILE* out;
-
 	// To use wiringPi functins you need to call a wiringPi setup function
 	if ( wiringPiSetup() == -1 )
 		exit( 1 );
-	
-	//printf("Enter filename (including .csv): ");
-	//scanf("%s", strInputFilename);
-	//printf("%s\n", strInputFilename);
-	//snprintf( strOutputFilename, sizeof(strOutputFilename), "%s", strInputFilename);
-	//printf("%s\n", strOutputFilename);
-	
 	// Repeat the polling function until we get a valid measurement
 	// Then wait enough to start on the next minute
-	
-		//TODO: get a value every n seconds
-		int retries = 0;
-		//open and close file in loop so that it updates
-		//the program may also eventually experience long delays
-		//so makes sense to not always have file open
-		//out = fopen("templog.csv", "a");
-		//out = fopen(strOutputFilename, "a");
+	//TODO: get a value every n seconds
+	int retries = 0;
+
+	//wait 1000ms to allow wiringPi to init
+	delay( 1000 );
+	while( !(read_dht11_dat(&temp, &humidity)) )
+	{
+	//wait 1000ms until retry
+	delay( 1000 );
+		retries++;
 		
-		while( !(read_dht11_dat(&temp, &humidity)) )
-		{
-			//wait 1000ms until retry
-			delay( 1000 );
-			retries++;
-			
-			//make it retry silently on bad values up to 10
-			if(retries > 10){
-				fprintf(stderr, "%d Consecutive Read Errors,\n", retries);
-			}
+		//make it retry silently on bad values up to 10
+		if(retries > 10){
+			fprintf(stderr, "%d Consecutive Read Errors,\n", retries);
 		}
-		
-		//once we have right value, put it in here
-		time_t t;
-		struct tm * dt;
-		time( &t );
-		dt = localtime ( &t );
-		
-		//printf("Got valid: %.2f\n", temp);
-		
-		//TODO: replace sketchy CSV system with sqlite3
-		//ALSO: Find out why the recording intermitently fails
-		//put the time in the file, note no newline here
-		fprintf(stdout, "%.24s,", asctime(dt) );
-		//fprintf("%d-%d-%d %d:%d:%d,", dt.tm_year + 1900, dt.tm_mon + 1, dt.tm_mday, dt.tm_hour, dt.tm_min, dt.tm_sec);
-		//put the values in the file
-		fprintf(stdout, "%.2f,%.2f,", temp, humidity);
-		
-		//print the stats on errors and the current time
-		//printf("%.24s,", asctime(dt));
-		//fprintf(stderr, "Good: %d Bad: %d Perc: %.1f\n", good, bad, (100.0*good)/(bad+good) );
-		
+	}
 	
+	//once we have right value, put it in here
+	time_t t;
+	struct tm * dt;
+	time( &t );
+	dt = localtime ( &t );
+	//put the time out to stdout, note no newline here
+	fprintf(stdout, "%.24s,", asctime(dt) );
 	
- 
+	//put the values to stdout
+	fprintf(stdout, "%.2f,%.2f,", temp, humidity);
 	return 0;
 }
 

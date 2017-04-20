@@ -110,13 +110,15 @@ class Sensor:
         ValidResult = False
         Tries = 0
         Tries_Limit = 30
+        CallTime = datetime.datetime.now()
+        # If we have 30 failures (which represents a delay of at least 30s), just bail and wait until the next opportunity
         while(ValidResult == False):
             if(Tries > Tries_Limit):
-                print("Exceeded %d tries"%Tries_limit)
+                print("Exceeded %d tries"%Tries_Limit)
                 return False
             
             try:
-                CallTime = datetime.datetime.now()
+                
                 ShellCallResults = ShellCall(command=self.InterfaceCommand)
                 ReturnCode = ShellCallResults['returncode']
                 StdOut = ShellCallResults['stdout']
@@ -127,7 +129,6 @@ class Sensor:
                 # If the C program returned cleanly; add the (what should be) one line of comma seperated data
                 if(ReturnCode == 0):
                     # TODO: Fix datetime format
-                    print("Runtime: %s"%str(datetime.datetime.now()-CallTime))
                     Entry = str(CallTime) + ',' + str(StdOut).replace('\n', "") + ','
                     print(Entry)
                     self.Entries.append(Entry)
@@ -135,13 +136,15 @@ class Sensor:
                     self.GoodRecordings += 1 # Would this make more sense somewhere else?
                     ValidResult = True
                  
+
             except:
                 print(self.SensorName+" interfacing exception")
                 raise
 
             Tries += 1
 
-        
+        # This runtime message needs to be outside of the loop so it gets the whole runtime including retries
+        print("Runtime: %s"%str(datetime.datetime.now()-CallTime))
         SuccessRate = (float(self.GoodRecordings)/float(self.BadRecordings+self.GoodRecordings))*100
         print("Success Rate: %.2f\t(Good: %d, Bad: %d)"%(SuccessRate, self.GoodRecordings, self.BadRecordings))
 
