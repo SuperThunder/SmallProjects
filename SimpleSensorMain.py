@@ -7,6 +7,7 @@ import csv # Write data
 # How many entries we should gather before writing them to file. Min 1, set to higher if you want to lower file accesses.
 CSV_BUFFER_SIZE = 1 # TODO: Put this somewhere more sensical
 
+# TODO: Attach a timestamp to the current output CSV(s) that shows the start time
 
 def main():
     # TODO: thread each interface in its own thread
@@ -74,12 +75,16 @@ class Sensor:
         self.GoodRecordings = 0 # For getting a % of how many sensor recordings fail
         self.BadRecordings = 0
 
+        # TODO: make the datetime format better
+        # What this does is set the output filename as the time the program was run, which seperates things a bit
+        self.ResultsFileName = str(datetime.datetime.now())+self.SensorName+".csv"
+
     def EntriesToCSV(self):
         import csv
 
         # TODO: Check for existence of file, if not, create it with header
         # Write all the entries to a csv
-        with open(file=self.SensorName+".csv", mode='a') as outputfile:
+        with open(file=self.ResultsFileName, mode='a') as outputfile:
             writer = csv.writer(outputfile)
             #for entry in self.EntriesBuffer:
             for i in range(0, len(self.EntriesBuffer)):
