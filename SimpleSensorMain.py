@@ -77,14 +77,15 @@ class Sensor:
 
         # TODO: make the datetime format better
         # What this does is set the output filename as the time the program was run, which seperates things a bit
-        self.ResultsFileName = str(datetime.datetime.now())+self.SensorName+".csv"
+        self.ResultsFileName = str(datetime.datetime.now().strftime("%Y-%m-%d %T"))+self.SensorName+".csv"
+        print("Filename: %s"%self.ResultsFileName)
 
     def EntriesToCSV(self):
         import csv
 
         # TODO: Check for existence of file, if not, create it with header
-        # Write all the entries to a csv
-        with open(file=self.ResultsFileName, mode='a') as outputfile:
+        # Write all the entries to a csv; we need append mode as we write only a few entries at a time
+        with open(self.ResultsFileName, mode='a') as outputfile:
             writer = csv.writer(outputfile)
             #for entry in self.EntriesBuffer:
             for i in range(0, len(self.EntriesBuffer)):
