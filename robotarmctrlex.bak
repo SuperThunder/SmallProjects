@@ -1,0 +1,152 @@
+//HERE BE FILE ERRORS
+//So all the file errors were some weird issue with the Linux NBC compiler
+//Would be worth trying to use functions like RotateMotor and Wait again
+
+mutex moveMutex; //used to 'lock' the motor access so that a motor isn't given multiple instructions, also used generally to keep only one motor acting at a time
+int basepower = 60;
+int armpower = 39;
+int clawpower = 30;
+int waittime = 100;
+
+/*
+sub rotbase(int degrees, int power){
+	//RotateMotor(OUT_C, power, degrees); //this creates a file error
+	//RotateMotor(OUT_C, 5, 180);
+	OnFwd(OUT_C, power); //this moves and THEN file errors
+	//Wait(150);
+	//Off(OUT_C);
+}
+
+sub rotarm(int degrees, int power){
+	RotateMotor(OUT_B, power, degrees);
+}
+
+sub rotclaw(int degrees, int power){
+	RotateMotor(OUT_A, power, degrees);
+}
+
+sub init(){
+
+}*/
+
+sub buttonText(){
+    if(SENSOR_1 == 0){
+      TextOut(0, 1, "NORMAL MODE");
+    }
+    else
+    {
+       TextOut(0, 1, "ANTIDIR MODE");
+    }
+}
+
+
+task base(){
+	while(true){
+		if(SENSOR_1 == 0){
+			if(ButtonPressed(BTNLEFT, false))
+			{
+				//rotbase(-degrees, power);
+				ResetScreen();
+    buttonText();
+				Acquire(moveMutex);
+				OnRev(OUT_C, basepower);
+				Wait(waittime);
+				//Wait(1);
+				Off(OUT_C);
+				Release(moveMutex);
+			}
+    		}else{
+			if(ButtonPressed(BTNLEFT, false))
+			{
+				//rotbase(-degrees, power);
+				ResetScreen();
+    buttonText();
+				Acquire(moveMutex);
+				OnFwd(OUT_C, basepower);
+				Wait(waittime);
+				//Wait(1);
+				Off(OUT_C);
+				Release(moveMutex);
+			}
+    		}
+
+	}
+
+}
+
+
+
+task arm(){
+   while(true){
+		if(SENSOR_1 == 0){
+			if(ButtonPressed(BTNCENTER, false))
+			{
+				//rotbase(-degrees, power);
+				ResetScreen();
+    buttonText();
+				Acquire(moveMutex);
+				OnRev(OUT_B, armpower);
+				Wait(waittime);
+				//Wait(1);
+				Off(OUT_B);
+				Release(moveMutex);
+			}
+		}else{
+			if(ButtonPressed(BTNCENTER, false))
+			{
+				//rotbase(-degrees, power);
+				ResetScreen();
+    buttonText();
+				Acquire(moveMutex);
+				OnFwd(OUT_B, armpower);
+				Wait(waittime);
+				//Wait(1);
+				Off(OUT_B);
+				Release(moveMutex);
+			}
+   		}
+
+	}
+}
+
+task claw(){
+	while(true){
+		if(SENSOR_1 == 0){
+			if(ButtonPressed(BTNRIGHT, false))
+			{
+				//rotbase(-degrees, power);
+    ResetScreen();
+    buttonText();
+				Acquire(moveMutex);
+				OnRev(OUT_A, clawpower);
+				Wait(waittime);
+				//Wait(1);
+				Off(OUT_A);
+				Release(moveMutex);
+			}
+    		}else{
+			if(ButtonPressed(BTNRIGHT, false))
+			{
+				//rotbase(-degrees, power);
+				ResetScreen();
+    buttonText();
+				Acquire(moveMutex);
+				OnFwd(OUT_A, clawpower);
+				Wait(waittime);
+				//Wait(1);
+				Off(OUT_A);
+				Release(moveMutex);
+			}
+    		}
+
+	}
+}
+
+task main(){
+	SetSensor(IN_1, SENSOR_TOUCH);
+	//This sets up each task as seperate threads and gives execution order
+	Precedes(base, arm, claw);
+	PlayTone(800, 30);
+	
+}
+

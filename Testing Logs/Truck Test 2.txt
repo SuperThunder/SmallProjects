@@ -1,0 +1,5 @@
+Increased duration of motors to 5000ms, in Front+Rear test set Front wheels to go in Rev and Rear wheels to go in Fwd.
+
+Front only: Again, using only the front wheels at power 50 was not enough to overcome friction from the inert rear wheels.
+
+Front+Rear: Truck moved backwards in a steady and reliable fashion. The single rear motor, having the slightly increase load of two wheels, did not have any sync issues with the front wheels

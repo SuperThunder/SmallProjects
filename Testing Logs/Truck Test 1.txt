@@ -1,0 +1,5 @@
+Ran basic program that used only two front wheels, and then both front and rear
+Front only: Ran for 1000ms at power 50, did not move truck significantly
+Front+Rear: Front motors and rear motors rotated in different directions at power 50 for 1000ms, causing no movement but a lot of strained noises
+
+Note: Front wheel axles may need to be redesigned, as they have a small tendency to detach
