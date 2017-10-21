@@ -18,7 +18,6 @@ dict_ElectricVariables = {
 							"current": 0.0,
 							"voltage": 0.0,
 							"time": 0.0,
-							"voltage": 0.0,
 							"energy": 0.0,
 							"resistance": 0.0,
 							"power": 0.0
@@ -49,6 +48,15 @@ dict_ElecReltn = { "output": "voltage", "ops": ["I", "*", "R"]
 - the operation(s) that must be done to and between both inputs
 
 
+We know
+- Which values we have
+- What formulas there are
+so if we define
+voltage=current*resistance
+we can use string operations to get the variables "current" and "resistance" and pull their values from the dict_Variables
+
+Could write a parser that fetches that values of variables as needed and applies operators either between two values (by looking at the 'current' value and the 'next' value) or to a (current) value (like square)
+could write the python code that should be executed and use that exec() (?) function
 '''
 
 	
