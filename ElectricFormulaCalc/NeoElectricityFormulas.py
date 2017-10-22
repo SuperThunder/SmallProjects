@@ -26,12 +26,43 @@ dict_ElectricVariables = {
 # Stores the relationships between the electric values (current, voltage, etc)
 # can this information be stored in a better way?
 list_ElectricFormulas = [
-						{"gives": voltage, "wants": ["current", "resistance"], formula="current*resistace" }
+						{"gives": "voltage", "wants":["current", "resistance"], "formula":"current*resistance" },
+						{"gives": "voltage", "wants":["", ""], "formula":"" },
+						{"gives": "voltage", "wants":["", ""], "formula":"" },
+						{"gives": "current", "wants":["", ""], "formula":"" },
+						{"gives": "resistance", "wants": ["", ""], "formula":"" },
+						{"gives": "energy", "wants":["", ""], "formula":"" }
 						]
 						
 # dict_ElectricVariables is passed to this function
 def solveInput(dict_Variables):
-	pass
+	def exec_Formula(dict_Variables, wants, formula):
+		# Check that all our values are present
+		for want in wants:
+			if( dict_Variables[want] is None ):
+				return None
+		
+		# set the values that will be needed by the formula
+		for want in wants:
+			# need to specify the namesace
+			exec( "%s = %f"%( want, dict_Variables[want] ), globals(), locals() )
+		
+		# exec should work here too
+		value = eval(formula)
+		return value
+	
+	# cycle through all the formulas and try to get more values with them
+	for dict_Formula in list_ElectricFormulas:
+		wants = dict_Formula["wants"]
+		gives = dict_Formula["gives"]
+		formula = dict_Formula["formula"]
+		
+		# don't run the formula if we already have the value
+		if( dict_Variables["gives"]==None ):
+			dict_Variables["gives"] = exec_Formula(dict_Variables, wants, formula)
+			
+
+
 
 ''' some ideas on how to represent the relationships between variables
 
@@ -94,23 +125,35 @@ Electrical relationships (for a single resistor with DC):
 # Voltage: v
 v=I*R
 v=E/Q
+v=(P*R)**0.5
 
 # Current: I
-I=V/R
+I=v/R
+I=Q/t
+I=(P/R)**0.5
+I=P/v
 
 # Power: P
-
+P=v*I
+P=(v**2)/R
+P=R*(I**2)
+P=E/t
 
 # Charge: Q
-
+Q=t*I
+Q=E/v
 
 # Time: t
-
+t=Q/I
+t=E/P
 
 # Resistance: R
-R=V/I
+R=v/I
+R=P/(I**2)
+R=(v**2)/power
 
 # Energy: E
-
+E=V*Q
+E=P*t
 
 '''
