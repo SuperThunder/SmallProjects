@@ -1,16 +1,26 @@
 def parseInput(str_Input):
 	# assuming the input comes in as one string like I=2A V=2mV R=802.37kOhm
-	tokens = " ".split(str_Input)
+	tokens = str_Input.split(" ")
+	print(tokens)
 	
 	for token in tokens:
 		# refine - this assumes the input was done exactly right
-		parts = "=".split(token)
+		parts = token.split("=")
+		# the input has been split into the variable and its value
+		# but we still need to split the value into its number component, scale component, and unit (although the unit is never going to be different)
 		
 		print("Letter: %s"%parts[0])
 		print("Value: %s"%parts[1])
 		
+		
 		# the value needs to be converted from something like 5V or 2.05GW to a float
-
+		
+dict_ScientificPrefixes = {
+							"m": 0.001
+							"k": 1000.0
+							"M": 1000000.0
+							"G": 1000000000.0
+							}
 
 # is there a better way to store the variable values?
 dict_ElectricVariables = { 
