@@ -23,5 +23,5 @@ def test_input_float():
 	
 	tests = [test1, test2, test3]
 	for test in tests:
-		output = Solver.parseInput(test1)
+		output = Solver.parseInput(test)
 		print(output)
