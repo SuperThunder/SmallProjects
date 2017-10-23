@@ -21,7 +21,7 @@ def test_input_float():
 	# In the future we will want the option of 2/3 characters units (Ohm, sec, min, hr, etc)
 	test3 = "R=100O P=4923.234234"
 	
-	tests = [test1, test2]
+	tests = [test1, test2, test3]
 	for test in tests:
 		output = Solver.parseInput(test1)
 		print(output)
