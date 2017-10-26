@@ -6,6 +6,7 @@ def test_input_simple():
 	test1 = "I=1A v=2V"
 	output = Solver.parseInput(test1)
 	print(output)
+	# todo: pass more than 2 parameters
 
 def test_input_simple_scale():
 	print("")
@@ -25,6 +26,11 @@ def test_input_float():
 	for test in tests:
 		output = Solver.parseInput(test)
 		print(output)
+
+def test_solve_simple():
+	test1 = "E=30J R=883O"
+	parsed = Solver.parseInput(test1)
+	solved = Solver.solveInput(parsed)
 
 
 # todo: write invalid test cases:
