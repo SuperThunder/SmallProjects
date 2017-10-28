@@ -33,13 +33,13 @@ dict_ElectricVariables = {
 # is there a better way to store the variable values?
 dict_ElectricVariableValues = { 
 							# Possibly want to initialize to None
-							"current": 0.0,
-							"voltage": 0.0,
-							"time": 0.0,
-							"charge": 0.0,
-							"energy": 0.0,
-							"resistance": 0.0,
-							"power": 0.0
+							"current": None,
+							"voltage": None,
+							"time": None,
+							"charge": None,
+							"energy": None,
+							"resistance": None,
+							"power": None
 						}
 
 # Stores the relationships between the electric values (current, voltage, etc)
@@ -78,7 +78,7 @@ def parseInput(str_Input):
 		pattern_match = pattern_Value.match( parts[1] )
 		token_Values = pattern_match.groups()
 		
-		print(token_Values)
+		#print(token_Values)
 		# Get the number, should always be present
 		token_Number = token_Values[0]
 		# Get the letters following the number
@@ -140,15 +140,33 @@ def solveInput(dict_Variables):
 		value = eval(formula)
 		return value
 	
+	''' Same thing as has_unit
+	def is_missing_unit(unit):
+		# TODO: Check if unit is not a floating point number?
+		if( unit == None ):
+			return True
+		else:
+			return False
+	'''
+	
+	def has_unit(unit):
+		# TODO: Check for float?
+		if( unit == None):
+			return False
+		else:
+			return True
+		
+	print("Given: ", dict_Variables)
 	# cycle through all the formulas and try to get more values with them
 	for dict_Formula in list_ElectricFormulas:
-		wants = dict_Formula["wants"]
-		gives = dict_Formula["gives"]
-		formula = dict_Formula["formula"]
+		formula_wants = dict_Formula["wants"]
+		formula_gives = dict_Formula["gives"]
+		formula_ops = dict_Formula["formula"]
 		
 		# don't run the formula if we already have the value
-		if( dict_Variables["gives"]==None ):
-			dict_Variables["gives"] = exec_Formula(dict_Variables, wants, formula)
+		unit_name = formula_gives
+		if( dict_Variables[unit_name]==None ):
+			dict_Variables[unit_name] = exec_Formula(dict_Variables, wants, formula)
 			
 
 
