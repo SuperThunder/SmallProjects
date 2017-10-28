@@ -140,22 +140,6 @@ def solveInput(dict_Variables):
 		value = eval(formula)
 		return value
 	
-	''' Same thing as has_unit
-	def is_missing_unit(unit):
-		# TODO: Check if unit is not a floating point number?
-		if( unit == None ):
-			return True
-		else:
-			return False
-	'''
-	
-	def has_unit(unit):
-		# TODO: Check for float?
-		if( unit == None):
-			return False
-		else:
-			return True
-		
 	print("Given: ", dict_Variables)
 	# cycle through all the formulas and try to get more values with them
 	for dict_Formula in list_ElectricFormulas:
@@ -164,8 +148,9 @@ def solveInput(dict_Variables):
 		formula_ops = dict_Formula["formula"]
 		
 		# don't run the formula if we already have the value
+		# but do run the calculation if we have the wants and need the gives
 		unit_name = formula_gives
-		if( dict_Variables[unit_name]==None ):
+		if( unit_name in dict_Variables.keys() and set(formula_wants).issubset(dict_Variables) ):
 			dict_Variables[unit_name] = exec_Formula(dict_Variables, wants, formula)
 			
 
