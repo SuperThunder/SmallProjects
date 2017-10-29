@@ -176,6 +176,12 @@ def solveInput(dict_Variables, iterations=3):
 	return dict_Variables
 
 
+def showOutput(dict_Variables):
+	# TODO: Convert back to scientific notation and use the unit names
+	print("")
+	for value in dict_Variables.keys():
+		print("%s: %f"%(value, dict_Variables[value]))
+
 
 ''' some ideas on how to represent the relationships between variables
 
