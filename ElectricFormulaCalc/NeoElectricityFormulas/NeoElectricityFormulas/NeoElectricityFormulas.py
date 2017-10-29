@@ -138,8 +138,8 @@ def parseInput(str_Input):
 	
 	
 						
-# dict_ElectricVariables is passed to this function
-def solveInput(dict_Variables):
+# the known unit values and the number of desired iterations is passed
+def solveInput(dict_Variables, iterations=3):
 	def exec_Formula(dict_Variables, wants, formula):
 		# Check that all our values are present
 		for want in wants:
@@ -148,25 +148,30 @@ def solveInput(dict_Variables):
 		
 		# set the values that will be needed by the formula
 		for want in wants:
-			# need to specify the namesace
+			# need to specify the namespace
 			exec( "%s = %f"%( want, dict_Variables[want] ), globals(), locals() )
 		
 		# exec should work here too
 		value = eval(formula)
 		return value
 	
-	print("Given: ", dict_Variables)
-	# cycle through all the formulas and try to get more values with them
-	for dict_Formula in list_ElectricFormulas:
-		formula_wants = dict_Formula["wants"]
-		formula_gives = dict_Formula["gives"]
-		formula_ops = dict_Formula["formula"]
-		
-		# don't run the formula if we already have the value
-		# but do run the calculation if we have the wants and need the gives
-		if( formula_gives not in dict_Variables.keys() and set(formula_wants).issubset(dict_Variables.keys()) ):
-			dict_Variables[formula_gives] = exec_Formula(dict_Variables, formula_wants, formula_ops)
-		
+	def run_Formulas():
+		#print("Given: ", dict_Variables)
+		# cycle through all the known formulas
+		for dict_Formula in list_ElectricFormulas:
+			formula_wants = dict_Formula["wants"]
+			formula_gives = dict_Formula["gives"]
+			formula_ops = dict_Formula["formula"]
+			
+			# don't run the formula if we already have the value
+			# but do run the calculation if we have the wants and need the gives
+			if( formula_gives not in dict_Variables.keys() and set(formula_wants).issubset(dict_Variables.keys()) ):
+				dict_Variables[formula_gives] = exec_Formula(dict_Variables, formula_wants, formula_ops)
+	
+	# Run as many iterations as specified - often the first 'pass' of solving creates more opportunities
+	for i in range(0, iterations):
+		run_Formulas()
+	
 	# return our results with the values we were able to solve for added
 	return dict_Variables
 

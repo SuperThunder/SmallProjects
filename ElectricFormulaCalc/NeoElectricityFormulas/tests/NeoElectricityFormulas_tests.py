@@ -28,10 +28,16 @@ def test_input_float():
 		print(output)
 
 def test_solve_simple():
-	test1 = "E=30J Q=3C"
-	parsed = Solver.parseInput(test1)
-	solved = Solver.solveInput(parsed)
-	print(solved)
+	tests = [ 
+			"E=30J Q=3C",
+			"v=35V t=300s I=1A"
+			]
+	
+	for test in tests:	
+		parsed = Solver.parseInput(test)
+		solved = Solver.solveInput(parsed)
+		print(solved)
+	
 
 
 # todo: write invalid test cases:
