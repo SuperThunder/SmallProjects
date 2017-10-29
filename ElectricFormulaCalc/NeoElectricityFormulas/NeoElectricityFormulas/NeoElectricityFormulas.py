@@ -53,7 +53,18 @@ list_ElectricFormulas = [
 						{"gives": "current", "wants":["charge", "time"], "formula":"charge/time" },
 						{"gives": "current", "wants":["power", "resistance"], "formula":"(power/resistance)**0.5" },
 						{"gives": "current", "wants":["power", "voltage"], "formula":"power/voltage" },
+						{"gives": "power", "wants":["voltage", "current"], "formula":"voltage*current" },
+						{"gives": "power", "wants":["voltage", "resistance"], "formula":"(voltage**2)/resistance" },
+						{"gives": "power", "wants":["resistance", "current"], "formula":"resistance*(current**2)" },
+						{"gives": "power", "wants":["energy", "time"], "formula":"energy/time" },
+						{"gives": "charge", "wants":["time", "current"], "formula":"time*current" },
+						{"gives": "charge", "wants":["energy", "voltage"], "formula":"energy/voltage" },
+						{"gives": "time", "wants":["charge", "current"], "formula":"charge/current" },
+						{"gives": "time", "wants":["energy", "power"], "formula":"energy/power" },
 						{"gives": "resistance", "wants": ["voltage", "current"], "formula":"voltage/current" },
+						{"gives": "resistance", "wants": ["power", "current"], "formula":"power/(current**2)" },
+						{"gives": "resistance", "wants": ["voltage", "power"], "formula":"(voltage**2)/power" },
+						{"gives": "energy", "wants":["power", "time"], "formula":"power*time" },
 						{"gives": "energy", "wants":["voltage", "charge"], "formula":"voltage*charge" }
 						]
 
