@@ -44,13 +44,17 @@ dict_ElectricVariableValues = {
 
 # Stores the relationships between the electric values (current, voltage, etc)
 # can this information be stored in a better way?
+# Maybe generate the wants and gives from a single formula str
 list_ElectricFormulas = [
 						{"gives": "voltage", "wants":["current", "resistance"], "formula":"current*resistance" },
-						{"gives": "voltage", "wants":["", ""], "formula":"" },
-						{"gives": "voltage", "wants":["", ""], "formula":"" },
-						{"gives": "current", "wants":["", ""], "formula":"" },
-						{"gives": "resistance", "wants": ["", ""], "formula":"" },
-						{"gives": "energy", "wants":["", ""], "formula":"" }
+						{"gives": "voltage", "wants":["energy", "charge"], "formula":"energy/charge" },
+						{"gives": "voltage", "wants":["power", "resistance"], "formula":"(power*resistance)**0.5" },
+						{"gives": "current", "wants":["voltage", "resistance"], "formula":"voltage/resistance" },
+						{"gives": "current", "wants":["charge", "time"], "formula":"charge/time" },
+						{"gives": "current", "wants":["power", "resistance"], "formula":"(power/resistance)**0.5" },
+						{"gives": "current", "wants":["power", "voltage"], "formula":"power/voltage" },
+						{"gives": "resistance", "wants": ["voltage", "current"], "formula":"voltage/current" },
+						{"gives": "energy", "wants":["voltage", "charge"], "formula":"voltage*charge" }
 						]
 
 
@@ -149,10 +153,11 @@ def solveInput(dict_Variables):
 		
 		# don't run the formula if we already have the value
 		# but do run the calculation if we have the wants and need the gives
-		unit_name = formula_gives
-		if( unit_name in dict_Variables.keys() and set(formula_wants).issubset(dict_Variables) ):
-			dict_Variables[unit_name] = exec_Formula(dict_Variables, wants, formula)
-			
+		if( formula_gives not in dict_Variables.keys() and set(formula_wants).issubset(dict_Variables.keys()) ):
+			dict_Variables[formula_gives] = exec_Formula(dict_Variables, formula_wants, formula_ops)
+		
+	# return our results with the values we were able to solve for added
+	return dict_Variables
 
 
 
