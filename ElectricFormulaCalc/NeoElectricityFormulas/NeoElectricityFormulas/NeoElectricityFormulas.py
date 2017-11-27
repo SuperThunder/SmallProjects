@@ -182,7 +182,7 @@ def solveInput(dict_Variables, iterations=3):
 # https://stackoverflow.com/questions/6913532/display-a-decimal-in-scientific-notation
 # https://stackoverflow.com/questions/6492096/automatically-process-numbers-in-e-scientific-notation-in-python
 def showOutput(dict_Variables):
-	from decimal import *
+	import math as m
 	# TODO: Convert back to scientific notation and use the unit names
 	print("")
 	
@@ -199,10 +199,12 @@ def showOutput(dict_Variables):
 		# get the SI multiple of our float
 		# log10( number ) gives the exponent to which you would need to raise 10 to get that number
 		# So floor(  log10(number)  ) gives us the right power
+		int_Scale = m.floor( m.log10(value) )
 		
+		str_PrettyFloat = str(value/int_Scale) + dict_MagnToLet(10.0^int_Scale)
 		
 		# or we roll our own to get the unit prefixes
-		str_PrettyUnit = "%s: %s %s"%(value, str_PrettyFloat, )
+		str_PrettyUnit = "%s: %s %s"%(value, str_PrettyFloat)
 		print(str_PrettyUnit)
 
 
