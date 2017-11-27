@@ -8,6 +8,7 @@ dict_ScientificPrefixes = {
 
 # Right now the only unit for time is seconds!
 # This describes the variable letters for the different units
+# Used like R=50
 dict_ElectricUnits = {
 						"t": "time",
 						"I": "current",
@@ -20,6 +21,7 @@ dict_ElectricUnits = {
 						}
 
 # This describes the unit letters assigned to each unit
+# Used like 10.05 W
 dict_ElectricVariables = {
 						"s": "time",
 						"A": "current",
@@ -176,11 +178,32 @@ def solveInput(dict_Variables, iterations=3):
 	return dict_Variables
 
 
+# Couple of interesting posts on going to and from scientific notation in Python
+# https://stackoverflow.com/questions/6913532/display-a-decimal-in-scientific-notation
+# https://stackoverflow.com/questions/6492096/automatically-process-numbers-in-e-scientific-notation-in-python
 def showOutput(dict_Variables):
+	from decimal import *
 	# TODO: Convert back to scientific notation and use the unit names
 	print("")
+	
+	# Put in a float power of 10 and get the SI prefix
+	dict_MagnToLet = dict( [reversed(i) for i in dict_ScientificPrefixes] )
+	
+	# Reverse of unit letter (like J) to unit name (like Joule) mapping
+	dict_UnitLetter = dict( [reversed(i)] for i in dict_ElectricVariables.items() )
+	
 	for value in dict_Variables.keys():
-		print("%s: %f"%(value, dict_Variables[value]))
+		#using format and decimal class to get eN format
+		#str_PrettyFloat = "{:.3e}".format(Decimal( dict_Variables[value] ))
+		
+		# get the SI multiple of our float
+		# log10( number ) gives the exponent to which you would need to raise 10 to get that number
+		# So floor(  log10(number)  ) gives us the right power
+		
+		
+		# or we roll our own to get the unit prefixes
+		str_PrettyUnit = "%s: %s %s"%(value, str_PrettyFloat, )
+		print(str_PrettyUnit)
 
 
 ''' some ideas on how to represent the relationships between variables
