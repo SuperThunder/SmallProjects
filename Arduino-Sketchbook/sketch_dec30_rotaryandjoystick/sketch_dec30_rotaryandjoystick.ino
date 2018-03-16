@@ -34,11 +34,13 @@ unsigned long rotaryLastCheck = 0;
 unsigned long serialLastUpdate = 0;
 const int rotaryCheckInterval = 5;
 const int serialUpdateInterval = 5;
-int change = 0; // the last change value of the encoder
+int rotary_change = 0; // the last change value of the encoder
+unsigned long rotaryValueResetLast = 0;
+int rotary_count_buf = 0;
 
 //PHYSICS DATA
 unsigned long physTimer=0;
-const int physInterval=18;
+const int physInterval=5;
 //Circle values
 int centerX = 64; //calculated later on as the X of the center of the screen
 int centerY = 32; //technically constant but you can make the program figure it out
@@ -141,18 +143,28 @@ void loop() {
   if( currentMillis - rotaryLastCheck > rotaryCheckInterval )
   {
     rotaryLastCheck = currentMillis;
-    
-    change = getEncoderTurn();
+    rotary_change = getEncoderTurn();
+    // the buffer shows a general trend of the rotary movements
+    rotary_count_buf += 3*rotary_change;
   }
+  
+  /*
+  //reset rotaryChange every 50ms
+  if( currentMillis - rotaryValueResetLast > 250)
+  {
+     rotaryValueResetLast = currentMillis;
+     rotary_count_buf = 0; 
+  }
+  */
   
   //This block only sends the SERIAL UPDATE (basically spams the encoder's current value over serial)
   if( currentMillis - serialLastUpdate > serialUpdateInterval )
   {
     serialLastUpdate = currentMillis;
-    if( change != 0 )
+    if( rotary_change != 0 )
     {  
       Serial.print("\nRotary encoder: ");
-      Serial.print(change); 
+      Serial.print(rotary_change); 
     }
   }
   //END OF ROTARY ENCODER CODE
@@ -164,6 +176,8 @@ void loop() {
   if( currentMillis - physTimer > physInterval) 
   {
     physTimer = currentMillis;
+    
+/*
     //Move the circle around
     //Move in X plane
     if( (joyValue1 < 450) && (circleY < 64 ))
@@ -183,9 +197,35 @@ void loop() {
     {
       circleX += 1;
     }
+*/  
+
+    //Calculate left paddle location and avoid leaving screen
+    if((rotary_count_buf < 0) && (LS_paddle_Y < (64-paddle_height))) 
+    {
+      LS_paddle_Y += 2;
+      rotary_count_buf += 1;
+    } 
+    else if((rotary_count_buf > 0) && (LS_paddle_Y >= 0))
+    { 
+      LS_paddle_Y -= 2;
+      rotary_count_buf -= 1;
+    }
+
+    //Calculate right paddle location and avoid leaving screen
+    //The Y-val is 0 for the top row and INCREASES as you go down
+    //So to prevent going down and out we have to check the position of the top row of the paddle is not too big
+    if(joyValue1 < 450 && RS_paddle_Y <= (64-paddle_height-1)) 
+    {
+      RS_paddle_Y += 1; //down
+    }
+    //Accordingly, to prevent going up and out we have to make sure the value won't be less than 0
+    else if(joyValue1 > 550 && RS_paddle_Y >= 1)
+    { 
+      RS_paddle_Y -= 1; //up
+    }
+
+
   }
-  //Calculate left paddle location and avoid leaving screen
-  
   
   //END OF PHYSICS CODE
   //==============================================
@@ -197,6 +237,7 @@ void loop() {
     previousScreenUpdateMillis = currentMillis;
     //Put our base down
     display.clearDisplay();
+/*
     // display a pixel in each corner of the screen
     display.drawPixel(0, 0, WHITE);
     display.drawPixel(127, 0, WHITE);
@@ -208,7 +249,7 @@ void loop() {
     display.setTextColor(WHITE);
     display.setTextSize(1);
     display.print("Joystick+screen demo");
-    
+*/    
     
     // Center circle - can be moved around by joystick
     display.fillCircle(circleX, circleY, 4, WHITE);
